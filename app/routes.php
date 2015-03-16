@@ -11,4 +11,15 @@
 |
 */
 
-Route::get('/', 'HomeController@showWelcome');
+//Rotas publicas
+Route::get('/', 'HomeController@home');
+Route::get('/empresa/detalhes/{id}', 'CompanyController@showCompany');
+
+//Rotas com atutenticação de usuário
+Route::get('/usuario/cadastro', 'UserController@createUsers');
+Route::post('/usuario/cadastro', 'UserController@storeUsers');
+Route::get('/empresa/cadastro', 'CompanyController@createCompanies');
+Route::post('/empresa/cadastro', 'CompanyController@storeCompanies');
+Route::get('/categoria/cadastro', 'CategoryController@createCategories');
+Route::post('/categoria/cadastro', 'CategoryController@storeCategories');
+Route::post('/subcategoria/cadastro', 'CategoryController@storeSubCategories');
