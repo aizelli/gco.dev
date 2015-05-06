@@ -12,33 +12,33 @@
  * @author alexandre
  */
 class CompanyController extends BaseController {
-    
-    public function createCompanies(){
-        
+
+    public function createCompanies() {
+
         $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
-        
+
         return View::make('admin.f_cadastro_empresa')->with('categorias', $categorias);
     }
-    
-    public function storeCompanies(){
+
+    public function storeCompanies() {
         
         $regras = array(
             'razao' => 'required'
         );
-        
+
         $mensagens = array(
             'razao.required' => '<strong>Razão Social</strong> inválida.'
         );
-        
+
         $validação = Validator::make(Input::all(), $regras, $mensagens);
-        
-        if($validação->fails()){
-            
-            return Redirect::to('/empresa/cadastro')->withErrors($validação)->withInput(Input::all());
-        }else{
-            
+
+        if ($validação->fails()) {
+
+            return Redirect::to('/cadastro/empresa')->withErrors($validação)->withInput(Input::all());
+        } else {
+
             $empresa = new Company;
-            
+
             $empresa->razao_social = Input::get('razao');
             $empresa->nome_emp = Input::get('nome_emp');
             $empresa->cnpj = Input::get('cnpj');
@@ -47,10 +47,10 @@ class CompanyController extends BaseController {
             $empresa->email = Input::get('email_emp');
             $empresa->site_url = Input::get('site');
             $empresa->descricao = Input::get('descricao');
-            $empresa->telefone1 = Input::get('ddd_tel1').Input::get('tel1');
-            $empresa->telefone2 = Input::get('ddd_tel2').Input::get('tel2');
-            $empresa->celular = Input::get('ddd_cel'). Input::get('cel');
-            $empresa->cep = Input::get('cep1'). Input::get('cep2');
+            $empresa->telefone1 = Input::get('ddd_tel1') . Input::get('tel1');
+            $empresa->telefone2 = Input::get('ddd_tel2') . Input::get('tel2');
+            $empresa->celular = Input::get('ddd_cel') . Input::get('cel');
+            $empresa->cep = Input::get('cep1') . Input::get('cep2');
             $empresa->pais = 'BRA';
             $empresa->estado = Input::get('estado');
             $empresa->cidade = Input::get('cidade');
@@ -67,18 +67,28 @@ class CompanyController extends BaseController {
             $empresa->in_url = Input::get('isntagran');
             $empresa->ne_url = Input::get('needid');
             $empresa->ativo = 1;
-            $empresa->categories_id = Input::get('categoria');
-            
+            $empresa->categories_id = Input::get('categoria'); 
             $empresa->save();
             
+            $diretorio = public_path().'/img/empresa/'.$empresa->id; 
+            File::makeDirectory($diretorio, 0777, true);
+            $nome = 'img_cartao';
+            $img = Input::file('img_cartao');
+            $img->move($diretorio, $nome.'.'.$img->getClientOriginalExtension());
+            
+            $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
+            $ok = 1;
+
+            return View::make('admin.f_cadastro_empresa')->with('categorias', $categorias)->with('ok', $ok);
         }
     }
-    
-    public function showCompany($id){
-        
+
+    public function showCompany($id) {
+
         $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
         $empresa = Company::find($id);
-        
+
         return View::make('visualiza_empresa')->with('empresa', $empresa)->with('categorias', $categorias);
     }
+
 }

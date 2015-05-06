@@ -34,7 +34,7 @@ class CategoryController extends BaseController {
         
         if($validacao->fails()){
             
-            return Redirect::to('/categoria/cadastro')->withErrors($validacao);
+            return Redirect::to('/cadastro/categoria')->withErrors($validacao);
         }else{
             
            $categoria = new Category;
@@ -61,7 +61,7 @@ class CategoryController extends BaseController {
         
         if($validacao->fails()){
             
-            return Redirect::to('/categoria/cadastro')->withErrors($validacao);
+            return Redirect::to('/cadastro/categoria')->withErrors($validacao);
         }else{
             
             //$child1 = $root->children()->create(['name' => 'Child 1']);
