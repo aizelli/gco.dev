@@ -20,7 +20,7 @@
         <div class="row">
             <div id="corpo">
                 <div id="conteudo" class="col-md-offset-1 col-sm-offset-1 col-lg-offset-1 col-md-10 col-sm-10 col-lg-10"><!-- Inicio da area do conteudo -->
-                    {{Form::open(array('method'=>'post', 'url'=>'/cadastro/empresa', 'files'=>true))}}
+                    {{Form::open(array('method'=>'post', 'url'=>'admin/cadastro/empresa', 'files'=>true))}}
                     <h3>Dados da empresa</h3>
                     <hr />
                     @if ( count($errors) > 0)
@@ -144,30 +144,19 @@
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 {{ Form::label('cep', 'CEP*') }}
-                                <div class="row">
-                                    <div class="col-xs-8 col-md-8 col-sm-8">
-                                        {{ Form::text('cep1','',array('class'=>'form-control', 'id'=>'cep', 'maxlength'=>'5', 'placeholder'=>'00000')) }}
-                                    </div>
-                                    <div class="col-xs-4 col-md-4 col-sm-4">
-                                        {{ Form::text('cep2','',array('class'=>'form-control', 'id'=>'cep', 'maxlength'=>'3', 'placeholder'=>'000')) }}
-                                    </div>
-                                </div>
+                                {{ Form::text('cep1','',array('class'=>'form-control', 'id'=>'cep', 'maxlength'=>'8', 'placeholder'=>'00000')) }}
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                {{ Form::label('estado', 'Estado*') }}
-                                {{ Form::select('estado', array(
-                                        '0'=>'selecione'
-                                        ), '0', array('class'=>'form-control')) }}
+                                {{ Form::label('uf', 'Estado*') }}
+                                {{ Form::select('uf', $estados, 26, array('class'=>'form-control')) }}
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 {{ Form::label('cidade', 'Cidade*') }}
-                                {{ Form::select('cidade', array(
-                                        '0'=>'selecione'
-                                        ), '0', array('class'=>'form-control')) }}
+                                {{ Form::select('cidade', array('0'=>'Selecione'), '', array('class'=>'form-control')) }}
                             </div>
                         </div>
                     </div>
@@ -283,12 +272,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            {{ Form::label('img_cartao', 'Imagem do Cartão de Visitas') }}
-                            {{ Form::file('img_cartao',array('class'=>'', 'id'=>'img_cartao')) }}
-                        </div>
-                    </div>
+
                     <br />
                     {{ Form::button('Salvar', array('type'=>'submit', 'class'=>'btn btn-default', 'title'=>'Cadastrar Usuário')) }}
                     <br /><br />

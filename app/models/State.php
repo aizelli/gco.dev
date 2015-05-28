@@ -12,5 +12,8 @@
  * @author alexandre
  */
 class State extends Eloquent{
-    //put your code here
+    
+    public function cities(){
+        return $this->hasMany('City');
+    }
 }

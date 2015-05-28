@@ -16,12 +16,17 @@ class CompanyController extends BaseController {
     public function createCompanies() {
 
         $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
+        $estados = State::lists('nome', 'id');
+        array_unshift($estados, "Selecione");
 
-        return View::make('admin.f_cadastro_empresa')->with('categorias', $categorias);
+        return View::make('admin.cadastros.f_cadastro_empresa', array(
+                    'categorias' => $categorias,
+                    'estados' => $estados
+        ));
     }
 
     public function storeCompanies() {
-        
+
         $regras = array(
             'razao' => 'required'
         );
@@ -34,7 +39,7 @@ class CompanyController extends BaseController {
 
         if ($validação->fails()) {
 
-            return Redirect::to('/cadastro/empresa')->withErrors($validação)->withInput(Input::all());
+            return Redirect::to('admin/cadastro/empresa')->withErrors($validação)->withInput(Input::all());
         } else {
 
             $empresa = new Company;
@@ -52,7 +57,7 @@ class CompanyController extends BaseController {
             $empresa->celular = Input::get('ddd_cel') . Input::get('cel');
             $empresa->cep = Input::get('cep1') . Input::get('cep2');
             $empresa->pais = 'BRA';
-            $empresa->estado = Input::get('estado');
+            $empresa->estado = Input::get('uf');
             $empresa->cidade = Input::get('cidade');
             $empresa->bairro = Input::get('bairro');
             $empresa->endereco = Input::get('endereco');
@@ -61,34 +66,83 @@ class CompanyController extends BaseController {
             $empresa->tipo_contrato = Input::get('tipo_con');
             $empresa->dias_contrato = Input::get('dias_con');
             $empresa->valor_contrato = Input::get('valor_con');
-            $empresa->fb_url = Input::get('face');
-            $empresa->gp_url = Input::get('google');
-            $empresa->tw_url = Input::get('twitter');
-            $empresa->in_url = Input::get('isntagran');
-            $empresa->ne_url = Input::get('needid');
             $empresa->ativo = 1;
-            $empresa->categories_id = Input::get('categoria'); 
+            $empresa->categories_id = Input::get('categoria');
             $empresa->save();
-            
-            $diretorio = public_path().'/img/empresa/'.$empresa->id; 
-            File::makeDirectory($diretorio, 0777, true);
-            $nome = 'img_cartao';
-            $img = Input::file('img_cartao');
-            $img->move($diretorio, $nome.'.'.$img->getClientOriginalExtension());
-            
-            $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
-            $ok = 1;
 
-            return View::make('admin.f_cadastro_empresa')->with('categorias', $categorias)->with('ok', $ok);
+
+            return View::make('admin.cadastros.f_cadastro_emp_ia', array(
+                        'id' => $empresa->id
+            ));
+        }
+    }
+
+    public function storeCompInfo($id) {
+
+        $empresa = Company::find($id);
+
+        $empresa->fb_url = Input::get('face');
+        $empresa->gp_url = Input::get('google');
+        $empresa->tw_url = Input::get('twitter');
+        $empresa->in_url = Input::get('isntagran');
+        $empresa->ne_url = Input::get('needid');
+        
+        $empresa->save();
+        
+        $destino = public_path()."/img/empresas/$empresa->razao_social";
+        
+        if(Input::hasFile('arte')){
+            $nome = "arte_".$empresa->razao_social.".".Input::file('arte')->getClientOriginalExtension();
+            $arte = Input::file('arte');
+            $arte->move($destino, $nome);
+        }
+        if(Input::hasFile('img1')){
+            $nome = "img1_".$empresa->razao_social.".".Input::file('img1')->getClientOriginalExtension();
+            $arte = Input::file('img1');
+            $arte->move($destino, $nome);
+        }
+        if(Input::hasFile('img2')){
+            $nome = "img2_".$empresa->razao_social.".".Input::file('img2')->getClientOriginalExtension();
+            $arte = Input::file('img2');
+            $arte->move($destino, $nome);
+        }
+        if(Input::hasFile('img3')){
+            $nome = "img3_".$empresa->razao_social.".".Input::file('img3')->getClientOriginalExtension();
+            $arte = Input::file('img3');
+            $arte->move($destino, $nome);
+        }
+        if(Input::hasFile('img4')){
+            $nome = "img4_".$empresa->razao_social.".".Input::file('img4')->getClientOriginalExtension();
+            $arte = Input::file('img4');
+            $arte->move($destino, $nome);
+        }
+        if(Input::hasFile('img5')){
+            $nome = "img5_".$empresa->razao_social.".".Input::file('img5')->getClientOriginalExtension();
+            $arte = Input::file('img5');
+            $arte->move($destino, $nome);
         }
     }
 
     public function showCompany($id) {
 
         $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
+        $estados = State::lists('nome', 'id');
+        $cidades = City::lists('nome', 'id');
         $empresa = Company::find($id);
 
-        return View::make('visualiza_empresa')->with('empresa', $empresa)->with('categorias', $categorias);
+        return View::make('visualiza_empresa', array(
+                    'estados' => $estados,
+                    'categorias' => $categorias,
+                    'estados' => $estados,
+                    'cidades' => $cidades
+        ));
+    }
+
+    public function pesquisaRegiao() {
+
+        $valores = [$pesquisa = Input::get('pesquisa'), $estado = Input::get('uf'), $cidade = Input::get('cidade')];
+
+        return $valores;
     }
 
 }

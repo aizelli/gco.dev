@@ -12,3 +12,4 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ URL::to('/')}}/js/bootstrap.min.js"></script>
 <script src="{{ URL::to('/')}}/js/default.js"></script>
+<script src="{{ URL::to('/')}}/js/jquery.bxslider.js"></script>

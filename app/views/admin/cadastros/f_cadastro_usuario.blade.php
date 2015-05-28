@@ -20,11 +20,12 @@
         <div class="row">
             <div id="corpo">
                 <div id="conteudo" class="col-md-offset-1 col-sm-offset-1 col-lg-offset-1 col-md-10 col-sm-10 col-lg-10"><!-- Inicio da area do conteudo -->
-                    {{Form::open(array('method'=>'post', 'url'=>'/cadastro/usuario'))}}
+                    {{Form::open(array('method'=>'post', 'url'=>'admin/cadastro/usuario'))}}
                     <h3>Dados do Usuário</h3>
                     <hr />
                     @if ( count($errors) > 0)
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <strong>Erro(s) encontrado(s):</strong>
                         <ul>
                             @foreach ($errors->all() as $e)

@@ -4,13 +4,8 @@
 <div class="wrapper" role="main">
     <div class="container">
         <div class="row">
-            <div id="logo" class="col-md-12 col-lg-12">
+            <div id="logo" class="col-md-2 col-lg-2">
                 <h4>logo</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div id="menu">
-                @include('includes.menu')
             </div>
         </div>
         <div class="row">

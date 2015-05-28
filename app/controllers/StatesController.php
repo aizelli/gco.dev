@@ -16,8 +16,9 @@ class StatesController extends BaseController {
     public function createRegiao() {
 
         $estados = State::lists('nome', 'id');
-        return View::make('admin.f_cadastro_regiao')
-                        ->with('estados', $estados);
+        return View::make('admin.cadastros.f_cadastro_regiao', array(
+                    'estados' => $estados
+        ));
     }
 
     public function storeEstado() {
@@ -34,7 +35,7 @@ class StatesController extends BaseController {
         $validacao = Validator::make(Input::all(), $regras, $mensagens);
 
         if ($validacao->fails()) {
-            return Redirect::to('/cadastro/regiao')->withErrors($validacao)->withInput(Input::all());
+            return Redirect::to('admin/cadastro/regiao')->withErrors($validacao)->withInput(Input::all());
         } else {
             $estado = new State;
 
@@ -45,9 +46,10 @@ class StatesController extends BaseController {
 
             $estados = State::lists('nome', 'id');
             $ok = 1;
-            return View::make('admin.f_cadastro_regiao')
-                            ->with('estados', $estados)
-                            ->with('ok', $ok);
+            return View::make('admin.cadastros.f_cadastro_regiao', array(
+                        'ok' => $ok,
+                        'estados' => $estados
+            ));
         }
     }
 
@@ -61,22 +63,23 @@ class StatesController extends BaseController {
         );
 
         $validacao = Validator::make(Input::all(), $regras, $mensagens);
-        
-        if($validacao->fails()){
-            return Redirect::to('/cadastro/regiao')->withErrors($validacao)->withInput(Input::all());
-        }else{
+
+        if ($validacao->fails()) {
+            return Redirect::to('admin/cadastro/regiao')->withErrors($validacao)->withInput(Input::all());
+        } else {
             $cidade = new City;
-            
+
             $cidade->nome = Input::get('nome_cidade');
-            $cidade->states_id = Input::get('estados');
-            
+            $cidade->states_id = Input::get('estado');
+
             $cidade->save();
-            
+
             $estados = State::lists('nome', 'id');
             $ok = 1;
-            return View::make('admin.f_cadastro_regiao')
-                            ->with('estados', $estados)
-                            ->with('ok', $ok);
+            return View::make('admin.cadastros.f_cadastro_regiao', array(
+                        'ok', $ok,
+                        'estados', $estados
+            ));
         }
     }
 

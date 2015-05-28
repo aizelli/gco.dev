@@ -20,7 +20,7 @@
         <div class="row">
             <div id="corpo">
                 <div id="conteudo" class="col-md-offset-1 col-sm-offset-1 col-lg-offset-1 col-md-10 col-sm-10 col-lg-10"><!-- Inicio da area do conteudo -->
-                    {{Form::open(array('method'=>'post', 'url'=>'/cadastro/categoria'))}}
+                    {{Form::open(array('method'=>'post', 'url'=>'admin/cadastro/categoria'))}}
                     <h3>Categoria Principal</h3>
                     <hr />
                     @if ( count($errors) > 0)
@@ -47,7 +47,7 @@
                     {{Form::close()}}
 
                     <hr />
-                    {{Form::open(array('method'=>'post', 'url'=>'/cadastro/subcategoria'))}}
+                    {{Form::open(array('method'=>'post', 'url'=>'admin/cadastro/subcategoria'))}}
                     <h3>Sub-Categoria</h3>
                     <hr />
                     <div class="row">

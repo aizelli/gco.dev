@@ -4,18 +4,33 @@
 <div class="wrapper" role="main">
     <div class="container">
         <div class="row">
-            <div id="logo" class="col-md-12 col-lg-12">
+            <div id="logo" class="col-md-2 col-lg-2">
                 <h4>logo</h4>
             </div>
-        </div>
-        <div class="row">
-            <div id="menu">
-                @if(Auth::check())
-                @include('includes.menuadmin')
-                @else
-                @include('includes.menu')
-                @endif
+            <div class="col-md-10 col-lg-10">
+                {{Form::open(array('method'=>'get', 'url'=>'/pesquisa', 'class'=>'form-inline'))}}
+                <div class="form-group">
+                    {{ Form::label('procura', 'Procurar') }}
+                    {{ Form::text('pesquisa','',array('class'=>'form-control input-lg', 'id'=>'procura')) }}
+                </div>
+
+                <div class="form-group">
+                    {{ Form::label('uf', 'Estado') }}
+                    {{ Form::select('uf', $uf, 26, array('class'=>'form-control input-lg')) }}
+                </div>
+
+                <div class="form-group">
+                    {{ Form::label('cidade', 'Cidade') }}
+                    {{ Form::select('cidade', array('0'=>'Selecione'), '', array('class'=>'form-control input-lg')) }}
+                </div>
+                <div class="form-group">
+                    {{ Form::button('Pesquisar', array('type'=>'submit', 'class'=>'btn btn-default btn-lg', 'title'=>'Pesquisar')) }}
+                </div>
+                {{Form::close()}}
             </div>
+        </div>
+        <div>
+            <br />
         </div>
         <div class="row">
             <div id="slide_topo">
@@ -85,4 +100,4 @@
         </div>
     </div>
 </div>
-    @stop
+@stop

@@ -20,7 +20,7 @@
         <div class="row">
             <div id="corpo">
                 <div id="conteudo" class="col-md-offset-1 col-sm-offset-1 col-lg-offset-1 col-md-10 col-sm-10 col-lg-10"><!-- Inicio da area do conteudo -->
-                    {{Form::open(array('method'=>'post', 'url'=>'/cadastro/estado'))}}
+                    {{Form::open(array('method'=>'post', 'url'=>'admin/cadastro/estado'))}}
                     <h3>Estado</h3>
                     <hr />
                     @if ( count($errors) > 0)
@@ -63,7 +63,7 @@
                     {{Form::close()}}
 
                     <hr />
-                    {{Form::open(array('method'=>'post', 'url'=>'/cadastro/cidade/'))}}
+                    {{Form::open(array('method'=>'post', 'url'=>'admin/cadastro/cidade/'))}}
                     <h3>Cidade</h3>
                     <hr />
                     <div class="row">

@@ -3,38 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
- $(document).ready(function () {
- $('#def').hide();
- $('#check').click(function () {
- $('#def').toggle();
- });
- });
- */
 $(document).ready(function () {
-    $('#def').hide();
-    $('#dados').hide();
-    $('#oculta').hide();
-    
-    $("#add").click(function () {
-        $("#dados").slideToggle(500);
-    });
-    $('input[name=filho]:radio').click(function () {
-
-        if ($(this).val() == "1") {
-            $('#oculta').slideDown(500);
-        } else {
-            $('#oculta').slideUp(500);
-        }
-
+    $('#uf').change(function () {
+        var baseUrl = document.location.origin + '/gco.dev/public/dropdown_cidades/';
+        $.get(baseUrl + $(this).val(), {option: $(this).val()}, function (data) {
+            $('#cidade').empty();
+            $.each(data, function (key, element) {
+                $('#cidade').append("<option value='" + key + "'>" + element + "</option>");
+            });
+        });
     });
 
+    $('.bxslider').bxSlider();
 });
-
-function valueChanged()
-{
-    if ($('#check').is(":checked"))
-        $("#def").slideDown(500);
-    else
-        $("#def").slideUp(500);
-}

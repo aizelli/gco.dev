@@ -12,5 +12,8 @@
  * @author alexandre
  */
 class City  extends Eloquent{
-    //put your code here
+    
+    public function states(){
+        return $this->belongsTo('State');
+    }
 }
