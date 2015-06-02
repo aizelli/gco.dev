@@ -8,27 +8,10 @@
         </div>
         <div class="row">
             <div id="logo" class="col-md-2 col-lg-2">
-                <img src="{{ URL::to('/')}}/img/banner/1.jpg" class="img-responsive"/>
+                <a href="{{ URL::to('/')}}"><img src="{{ URL::to('/')}}/img/banner/1.jpg" class="img-responsive"/></a>
             </div>
             <div class="col-md-10 col-lg-10">
-                {{Form::open(array('method'=>'get', 'url'=>'/pesquisa', 'class'=>'form-inline'))}}
-                <div class="form-group">
-                    {{ Form::text('pesquisa','',array('class'=>'form-control ', 'id'=>'procura', 'placeholder'=>'Encontre aqui')) }}
-                </div>
-
-                <div class="form-group">
-                    {{ Form::label('uf', 'Estado') }}
-                    {{ Form::select('uf', $uf, 0, array('class'=>'form-control ', 'id'=>'uf')) }}
-                </div>
-
-                <div class="form-group">
-                    {{ Form::label('cidade', 'Cidade') }}
-                    {{ Form::select('cidade', array('0'=>'Selecione'), '', array('class'=>'form-control ')) }}
-                </div>
-                <div class="form-group">
-                    {{ Form::button('Pesquisar', array('type'=>'submit', 'class'=>'btn btn-default', 'title'=>'Pesquisar')) }}
-                </div>
-                {{Form::close()}}
+                
             </div>
         </div>
         <div>
@@ -48,23 +31,39 @@
             <div id="corpo">
                 <div class="col-md-2 col-lg-2">
                     <div id="categorias_titulo">
-                        <h4 class="text-center">Categorias</h4>
+                        <h4 class="text-center">Filtros</h4>
                     </div>
                     <div id="categoria_conteudo">
-                        <ul >
-                            @foreach($categorias as $c)
-                            <li>
-                                <a href="{{URL::to('/')}}/pesquisa/categoria/{{$c->id}}" >{{$c->name}}</a>
-                            </li>
-                            @endforeach
-                        </ul>
+                        {{Form::open(array('method'=>'get', 'url'=>'pesquisa/avancada'))}}
+                        {{ Form::hidden('categoria', "$categoria->id") }}
+                        <div class="form-group">
+                            {{ Form::label('pesquisa', 'Nome') }}
+                            {{ Form::text('pesquisa','',array('class'=>'form-control ', 'id'=>'procura')) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('sub', 'Sub-categorias') }}
+                            {{ Form::select('sub', $categorias, 0, array('class'=>'form-control ', 'id'=>'sub')) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('uf', 'Estado') }}
+                            {{ Form::select('uf', $uf, 0, array('class'=>'form-control ', 'id'=>'uf')) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ Form::label('cidade', 'Cidade') }}
+                            {{ Form::select('cidade', array('0'=>'Selecione'), '', array('class'=>'form-control ')) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::button('Redefinir', array('type'=>'submit', 'class'=>'btn btn-default', 'title'=>'Redefinir pesquisa')) }}
+                        </div>
+                        {{Form::close()}}
                     </div>
                 </div>
                 <div class="col-md-8 col-lg-8"><!-- Inicio da area do conteudo -->
                     <div class="row">
                         <div id="conteudo" >
                             <div class="col-md-12 col-lg-12">
-                                <h4>Empresas em destaque</h4>
+                                <h4>Resultado para {{$categoria->name}} </h4>
 
                                 <div id="empresas">
                                     <div class="row">

@@ -7,9 +7,9 @@
         </div>
     </div>
 </footer>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{{ URL::to('/')}}/js/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{{ URL::to('/')}}/js/bootstrap.min.js"></script>
 <script src="{{ URL::to('/')}}/js/default.js"></script>
 <script src="{{ URL::to('/')}}/js/jquery.bxslider.js"></script>

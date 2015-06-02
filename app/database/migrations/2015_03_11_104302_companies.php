@@ -17,6 +17,9 @@ class Companies extends Migration {
 
             $table->increments('id', TRUE);
             $table->integer('categories_id')->unsigned();
+            $table->integer('subcategory_id');
+            $table->integer('category2nd_id');
+            $table->integer('subcategory2nd_id');
             $table->string('nome_emp', 120)->nullable();
             $table->string('razao_social', 120);
             $table->bigInteger('cnpj');

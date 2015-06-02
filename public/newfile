@@ -1,0 +1,66 @@
+#Weebly Additions Start
+ErrorDocument 404 /w_api/Handler.php
+
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !-f
+RewriteRule ^ajax/(.*)$ /w_api/Handler.php
+
+RewriteBase /
+RewriteRule ^$ index.html [R=301,L]
+
+RewriteCond %{REQUEST_URI} !-f
+RewriteRule ^index.html(.*)$ /w_api/Handler.php [QSA]
+
+# stop condition
+RewriteRule ^mobile/.*$ - [L]
+
+# only process HTML files
+# ----------------------------------------------------
+
+RewriteRule (/|\.html)$ - [S=1]
+        # is an html file, start the tests...
+
+RewriteRule .* - [S=9]
+        # NOT html file, skip past mobile rules...
+
+# tests
+# ----------------------------------------------------
+
+RewriteCond %{QUERY_STRING} ^view=mobile$
+RewriteRule ^(.*)$ /$1? [CO=is_mobile:1:%{HTTP_HOST},CO=disable_mobile:0:%{HTTP_HOST},L,R]
+        # set cookies, redirect...
+
+RewriteCond %{QUERY_STRING} ^view=full$
+RewriteRule ^(.*)$ /$1? [CO=disable_mobile:1:%{HTTP_HOST},L,R]
+        # set cookies, redirect...
+
+RewriteCond %{HTTP_COOKIE} (^|;)\s*is_mobile=0
+RewriteRule .* - [S=6]
+        # skip past mobile rules...
+
+RewriteCond %{HTTP_COOKIE} (^|;)\s*disable_mobile=1
+RewriteRule .* - [S=5]
+        # skip past mobile rules...
+
+RewriteCond %{HTTP_COOKIE} (^|;)\s*is_mobile=1
+RewriteRule .* - [S=2]
+        # go to mobile rules...
+
+RewriteCond %{HTTP_USER_AGENT} android|avantgo|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge\ |$
+RewriteCond %{HTTP_USER_AGENT} ^(1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a\ wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an$
+RewriteRule .* - [CO=is_mobile:1:%{HTTP_HOST},S=1]
+        # go to mobile rules...
+
+RewriteRule .* - [CO=is_mobile:0:%{HTTP_HOST},S=2]
+        # set cookie, skip past mobile rules...
+
+
+# mobile rules
+
+# ----------------------------------------------------
+
+RewriteRule ^$ /mobile/index.html [S=1,PT]
+
+RewriteRule ^(.*)$ /mobile/$1 [PT]
+
+#Weebly Additions End

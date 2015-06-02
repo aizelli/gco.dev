@@ -18,6 +18,8 @@ Route::get('/login', 'UserController@createLogin');
 Route::post('/login', 'UserController@fazLogin');
 Route::get('/pesquisa', 'CompanyController@pesquisaRegiao');
 Route::get('dropdown_cidades/{id}', 'HomeController@dropdownCities');
+Route::get('pesquisa/categoria/{id}', 'CompanyController@pesquisaPorCategoria');
+Route::get('pesquisa/avancada', 'CompanyController@pesquisaAvancada');
 
 //Rotas com atutenticação de usuário
 Route::group(array('before' => 'auth'), function() {

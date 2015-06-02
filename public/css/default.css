@@ -27,11 +27,11 @@ and open the template in the editor.
 }
 
 #slide_topo{
-    height: 250px;
+    height: 350px;
 }
 
 #slide_topo img{
-    height: 200px;
+    height: 300px;
     vertical-align: middle;
 }
 
@@ -49,6 +49,12 @@ and open the template in the editor.
     padding: 5px;
 }
 
+#map-canvas {
+    width: 500px;
+    height: 400px;
+    background-color: #CCC;
+}
+
 .footer{
     min-height: 120px;
     background-color: #009C00;
@@ -62,4 +68,41 @@ and open the template in the editor.
 .wrapper{
     margin: 5px 0px 20px 0px;
     min-height: 280px;
+}
+
+table{
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: arial;
+}
+
+.tabela-emp{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.tabela-emp th,
+.tabela-emp td{
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.tabela-emp td:last-child {
+    border-right: 0;
+}
+
+.art-emp{
+    height: 100px;
+    width: 180px;
+    vertical-align: middle;
+}
+
+.art-det{
+    height: 200px;
+    width: 280px;
+    margin: 5px;
 }
