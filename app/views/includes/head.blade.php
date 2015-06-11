@@ -1,16 +1,16 @@
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guia Região</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia Web Região</title>
 
-<!-- Bootstrap -->
-<link href="{{ URL::to('/')}}/css/bootstrap.min.css" rel="stylesheet">
-<link href="{{ URL::to('/')}}/css/default.css" rel="stylesheet">
-<link href="{{ URL::to('/')}}/css/jquery.bxslider.css" rel="stylesheet">
+<!-- If you are using CSS version, only link these 2 files, you may add app.css to use for your overrides if you like. -->
+{{ HTML::style('css/foundation.css') }}
+{{ HTML::style('css/normalize.css')}}
+{{ HTML::style('css/icons/foundation-icons.css')}}
+{{ HTML::style('css/jquery.bxslider.css')}}
+{{ HTML::style('css/webicons.css')}}
+{{ HTML::style('css/default.css')}}
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="{{ URL::asset('js/vendor/modernizr.js') }}"></script>
+@if(isset($mapa))
+<script type="text/javascript">var centreGot = false;</script>{{$mapa['js']}}
+@endif

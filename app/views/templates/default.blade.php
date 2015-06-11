@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
     <head>
         @include('includes.head')
     </head>
@@ -8,6 +10,7 @@
         @yield('conteudo')
 
         @include('includes.foot')
-        
+
+
     </body>
 </html>

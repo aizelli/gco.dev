@@ -17,4 +17,9 @@ class Company extends Eloquent {
         
         $this->belongsTo('Category');
     }
+    
+    public function networks(){
+        
+        $this->hasMany('Network');
+    }
 }

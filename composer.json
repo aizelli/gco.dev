@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-                "baum/baum": "1.0.*"
+                "baum/baum": "1.0.*",
+                "appitventures/phpgmaps": "1.0.*@dev"
 	},
 	"autoload": {
 		"classmap": [

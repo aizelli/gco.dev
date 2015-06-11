@@ -16,9 +16,9 @@ class Users extends Migration {
             $table->engine = 'InnoDB';
 
             $table->increments('id', true);
-            $table->string('nome')->nullable();
+            $table->string('nome');
             $table->string('email', 120)->unique();
-            $table->string('usuario', 10)->unique()->nullable;
+            $table->string('usuario', 10)->unique();
             $table->string('password');
             $table->tinyInteger('nivel');
             $table->boolean('ativo');

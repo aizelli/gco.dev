@@ -122,6 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'Baum\BaumServiceProvider',
+                'Appitventures\Phpgmaps\PhpgmapsServiceProvider',
 
 	),
 
@@ -189,6 +190,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+                'Gmaps'             => 'Appitventures\Phpgmaps\Facades\Phpgmaps',
 
 	),
 

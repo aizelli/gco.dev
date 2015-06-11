@@ -18,6 +18,7 @@ Route::get('/login', 'UserController@createLogin');
 Route::post('/login', 'UserController@fazLogin');
 Route::get('/pesquisa', 'CompanyController@pesquisaRegiao');
 Route::get('dropdown_cidades/{id}', 'HomeController@dropdownCities');
+Route::get('dropdown_sub/{id}', 'HomeController@dropdownSubCategories');
 Route::get('pesquisa/categoria/{id}', 'CompanyController@pesquisaPorCategoria');
 Route::get('pesquisa/avancada', 'CompanyController@pesquisaAvancada');
 
@@ -35,7 +36,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('admin/cadastro/empresa', 'CompanyController@storeCompanies');
     Route::post('admin/cadastro/empresa/dados_adicionais/{id}', 'CompanyController@storeCompInfo');
     Route::get('admin/editar/empresa/{id}', 'CompanyController@editCompanies');
-    Route::post('admin/cadastro/empresa/{id}', 'CompanyController@updateCompanies');
+    Route::post('admin/editar/empresa/{id}', 'CompanyController@updateCompanies');
     Route::get('admin/cadastro/categoria', 'CategoryController@createCategories');
     Route::post('admin/cadastro/categoria', 'CategoryController@storeCategories');
     Route::post('admin/cadastro/subcategoria', 'CategoryController@storeSubCategories');

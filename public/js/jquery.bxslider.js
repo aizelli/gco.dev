@@ -21,7 +21,7 @@
 		easing: null,
 		slideMargin: 0,
 		startSlide: 0,
-		randomStart: false,
+		randomStart: true,
 		captions: false,
 		ticker: false,
 		tickerHover: false,
@@ -54,8 +54,8 @@
 
 		// CONTROLS
 		controls: true,
-		nextText: 'Next',
-		prevText: 'Prev',
+		nextText: 'Próximo',
+		prevText: 'Anterior',
 		nextSelector: null,
 		prevSelector: null,
 		autoControls: false,

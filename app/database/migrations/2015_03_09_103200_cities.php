@@ -17,7 +17,6 @@ class Cities extends Migration {
 
             $table->increments('id', TRUE);
             $table->integer('states_id')->unsigned();
-            $table->char('sigla', 2);
             $table->string('nome', 50);
 
             $table->timestamps();

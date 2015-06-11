@@ -17,13 +17,13 @@ class Companies extends Migration {
 
             $table->increments('id', TRUE);
             $table->integer('categories_id')->unsigned();
-            $table->integer('subcategory_id');
-            $table->integer('category2nd_id');
-            $table->integer('subcategory2nd_id');
-            $table->string('nome_emp', 120)->nullable();
-            $table->string('razao_social', 120);
-            $table->bigInteger('cnpj');
+            $table->integer('sub1_id');
+            $table->integer('sub2_id')->nullable();
+            $table->string('nome_emp', 120);
+            $table->string('razao_social', 120)->nullable();
+            $table->bigInteger('cpfcnpj');
             $table->integer('ie')->nullable();
+            $table->boolean('insento');
             $table->integer('cep');
             $table->string('endereco', 60);
             $table->integer('numero');
@@ -32,23 +32,15 @@ class Companies extends Migration {
             $table->mediumInteger('cidade');
             $table->tinyInteger('estado');
             $table->char('pais', 20);
+            $table->string('coordenadas', 30)->nullable();
             $table->string('nome_resp', 60);
             $table->bigInteger('celular')->nullable();
-            $table->integer('telefone1');
-            $table->integer('telefone2')->nullable();
+            $table->bigInteger('telefone1')->nullable();
+            $table->bigInteger('telefone2')->nullable();
             $table->string('email', 120);
             $table->text('descricao');
-            $table->tinyInteger('tipo_contrato');
-            $table->tinyInteger('dias_contrato');
-            $table->decimal('valor_contrato', 8,2);
             $table->string('site_url')->nullable();
-            $table->string('fb_url')->nullable();
-            $table->string('gp_url')->nullable();
-            $table->string('tw_url')->nullable();
-            $table->string('in_url')->nullable();
-            $table->string('ne_url')->nullable();
-            $table->string('cartao_img');
-            $table->string('imgs')->nullable();
+            $table->tinyInteger('tipo');
             $table->boolean('ativo');
 
             $table->timestamps();

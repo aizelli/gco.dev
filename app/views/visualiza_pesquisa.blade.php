@@ -1,86 +1,153 @@
 @extends('templates.default')
 @section('conteudo')
 
-<div class="wrapper" role="main">
-    <div class="container">
+<div class="row">
+    <div class="medium-2 columns">
+        <a href="{{URL::to('/')}}"><img src="{{ URL::to('/')}}/img/logo2.png" class="img-responsive"/></a>
+    </div>
+    <div class="medium-10 columns form-pesquisa">
         <div class="row">
-
-        </div>
-        <div class="row">
-            <div id="logo" class="col-md-2 col-lg-2">
-                <a href="{{ URL::to('/')}}"><img src="{{ URL::to('/')}}/img/banner/1.jpg" class="img-responsive"/></a>
+            {{Form::open(array('method'=>'get', 'url'=>'/pesquisa'))}}
+            <div class="medium-3 columns">
+                {{ Form::text('pesquisa','',array('id'=>'procura', 'placeholder'=>'Encontre aqui')) }}
             </div>
-            <div class="col-md-10 col-lg-10">
-                
-            </div>
-        </div>
-        <div>
-            <br />
-        </div>
-        <div class="row">
-            <div id="slide_topo">
-                <ul class="bxslider">
-                    <li><img src="{{ URL::to('/')}}/img/banner/1.jpg" class="img-responsive"/></li>
-                    <li><img src="{{ URL::to('/')}}/img/banner/2.jpg" class="img-responsive"/></li>
-                    <li><img src="{{ URL::to('/')}}/img/banner/3.jpg" class="img-responsive"/></li>
-                    <li><img src="{{ URL::to('/')}}/img/banner/4.jpg" class="img-responsive"/></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div id="corpo">
-                <div class="col-md-2 col-lg-2">
-                    <div id="categorias_titulo">
-                        <h4 class="text-center">Filtros</h4>
+            <div class="medium-4 columns">
+                <div class="row collapse prefix-radius">
+                    <div class="medium-3 columns">
+                        <span class="prefix">Estado</span>
                     </div>
-                    <div id="categoria_conteudo">
-                        {{Form::open(array('method'=>'get', 'url'=>'pesquisa/avancada'))}}
-                        {{ Form::hidden('categoria', "$categoria->id") }}
-                        <div class="form-group">
-                            {{ Form::label('pesquisa', 'Nome') }}
-                            {{ Form::text('pesquisa','',array('class'=>'form-control ', 'id'=>'procura')) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('sub', 'Sub-categorias') }}
-                            {{ Form::select('sub', $categorias, 0, array('class'=>'form-control ', 'id'=>'sub')) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('uf', 'Estado') }}
-                            {{ Form::select('uf', $uf, 0, array('class'=>'form-control ', 'id'=>'uf')) }}
-                        </div>
-
-                        <div class="form-group">
-                            {{ Form::label('cidade', 'Cidade') }}
-                            {{ Form::select('cidade', array('0'=>'Selecione'), '', array('class'=>'form-control ')) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::button('Redefinir', array('type'=>'submit', 'class'=>'btn btn-default', 'title'=>'Redefinir pesquisa')) }}
-                        </div>
-                        {{Form::close()}}
+                    <div class="medium-9 columns">
+                        {{ Form::select('uf', $uf, 0, array('id'=>'uf')) }}
                     </div>
                 </div>
-                <div class="col-md-8 col-lg-8"><!-- Inicio da area do conteudo -->
+            </div>
+            <div class="medium-4 columns">
+                <div class="row collapse prefix-radius">
+                    <div class="medium-3 columns">
+                        <span class="prefix">Cidade</span>
+                    </div>
+                    <div class="medium-9 columns">
+                        {{ Form::select('cidade', array('0'=>'Selecione o estado'), '', array('id'=>'cidade')) }}
+                    </div>
+                </div>
+            </div>
+            <div class="medium-1 columns">
+                <button class="button tiny radius" title="Pesquisar" type="submit"><i class="fi-magnifying-glass pesquisa"></i></button>
+
+            </div>
+            {{Form::close()}}
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="medium-12 columns">
+        <ul class="bxslider">
+            <li><img src="{{ URL::to('/')}}/img/banner/1.jpg" /></li>
+            <li><img src="{{ URL::to('/')}}/img/banner/2.jpg" /></li>
+            <li><img src="{{ URL::to('/')}}/img/banner/3.jpg" /></li>
+            <li><img src="{{ URL::to('/')}}/img/banner/4.jpg" /></li>
+            <li><img src="{{ URL::to('/')}}/img/banner/4.jpg" /></li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="medium-12 columns">
+        <div class="row">
+            <div class="medium-2 columns">
+                <div id="lateral-esquerda" class="text-center">
+                    <br />
+                    <h4 ><strong>Filtros</strong></h4>
+                    <hr />
+                    {{Form::open(array('method'=>'get', 'url'=>"pesquisa/categoria/$categoria->id"))}}
+                    {{ Form::hidden('categoria', "$categoria->id") }}
                     <div class="row">
-                        <div id="conteudo" >
-                            <div class="col-md-12 col-lg-12">
-                                <h4>Resultado para {{$categoria->name}} </h4>
-
-                                <div id="empresas">
-                                    <div class="row">
-                                        {{$tabela}}
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div class="medium-12 columns">
+                            {{ Form::label('pesquisa', 'Nome', array('class'=>'text-left')) }}
+                            {{ Form::text('pesquisa','',array('id'=>'procura_fil')) }}
                         </div>
                     </div>
-                </div><!-- Fim area do conteudo -->
-                <div class="col-md-2 col-lg-2"> <!-- Inicio do sidebar -->
-                    <div id="sidebar">
-                        Sidebar - publicidade
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            {{ Form::label('sub', 'Sub-categorias', array('class'=>'text-left')) }}
+                            {{ Form::select('sub', array('0'=>'Todos',$categorias), 0, array('id'=>'sub_fil')) }}
+                        </div>
                     </div>
-                </div> <!-- Fim area do sidebar -->
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            {{ Form::label('uf', 'Estado', array('class'=>'text-left')) }}
+                            {{ Form::select('uf', $estados, 0, array('id'=>'uf_fil')) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            {{ Form::label('cidade', 'Cidade', array('class'=>'text-left')) }}
+                            {{ Form::select('cidade', array('0'=>'Todos'), '', array('id'=>'cidade_fil')) }}
+                        </div>
+                    </div>
+                    {{ Form::button('Filtrar', array('type'=>'submit', 'class'=>'button small expand', 'title'=>'Redefinir pesquisa')) }}
+
+                    {{Form::close()}}
+                </div>
             </div>
+            <div class="medium-8 columns"><!-- Inicio da area do conteudo -->
+                <div class="row">
+                    <h3>Resultado para {{strtoupper($categoria->name)}}</h3>
+
+                    {{$tabela}}
+                </div>
+            </div><!-- Fim area do conteudo -->
+            <div class="medium-2 columns"> <!-- Inicio do sidebar -->
+                <div id="lateral-direita" class="text-center">
+                    <br />
+                    <h4 ><strong>Parceiros</strong></h4>
+                    <hr />
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            1
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            2
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            3
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            4
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            5
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            6
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            7
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            8
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="medium-12 columns">
+                            9
+                        </div>
+                    </div>                    
+                </div>
+            </div> <!-- Fim area do sidebar -->
         </div>
     </div>
 </div>

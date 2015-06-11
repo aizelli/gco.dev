@@ -65,6 +65,7 @@ class StatesController extends BaseController {
         $validacao = Validator::make(Input::all(), $regras, $mensagens);
 
         if ($validacao->fails()) {
+
             return Redirect::to('admin/cadastro/regiao')->withErrors($validacao)->withInput(Input::all());
         } else {
             $cidade = new City;
@@ -76,9 +77,10 @@ class StatesController extends BaseController {
 
             $estados = State::lists('nome', 'id');
             $ok = 1;
+
             return View::make('admin.cadastros.f_cadastro_regiao', array(
-                        'ok', $ok,
-                        'estados', $estados
+                        'ok'=> $ok,
+                        'estados'=> $estados
             ));
         }
     }
