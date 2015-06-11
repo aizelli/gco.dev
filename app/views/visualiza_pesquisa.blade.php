@@ -5,37 +5,39 @@
     <div class="medium-2 columns">
         <a href="{{URL::to('/')}}"><img src="{{ URL::to('/')}}/img/logo2.png" class="img-responsive"/></a>
     </div>
-    <div class="medium-10 columns form-pesquisa">
-        <div class="row">
-            {{Form::open(array('method'=>'get', 'url'=>'/pesquisa'))}}
-            <div class="medium-3 columns">
-                {{ Form::text('pesquisa','',array('id'=>'procura', 'placeholder'=>'Encontre aqui')) }}
-            </div>
-            <div class="medium-4 columns">
-                <div class="row collapse prefix-radius">
-                    <div class="medium-3 columns">
-                        <span class="prefix">Estado</span>
-                    </div>
-                    <div class="medium-9 columns">
-                        {{ Form::select('uf', $uf, 0, array('id'=>'uf')) }}
+    <div class="medium-10 columns">
+        <div class="form-pesquisa" style="background-color: #2D4E98">
+            <div class="row">
+                {{Form::open(array('method'=>'get', 'url'=>'/pesquisa'))}}
+                <div class="medium-3 columns">
+                    {{ Form::text('pesquisa','',array('id'=>'procura', 'placeholder'=>'Encontre aqui')) }}
+                </div>
+                <div class="medium-4 columns">
+                    <div class="row collapse prefix-radius">
+                        <div class="medium-3 columns">
+                            <span class="prefix">Estado</span>
+                        </div>
+                        <div class="medium-9 columns">
+                            {{ Form::select('uf', $uf, 0, array('id'=>'uf')) }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="medium-4 columns">
-                <div class="row collapse prefix-radius">
-                    <div class="medium-3 columns">
-                        <span class="prefix">Cidade</span>
-                    </div>
-                    <div class="medium-9 columns">
-                        {{ Form::select('cidade', array('0'=>'Selecione o estado'), '', array('id'=>'cidade')) }}
+                <div class="medium-4 columns">
+                    <div class="row collapse prefix-radius">
+                        <div class="medium-3 columns">
+                            <span class="prefix">Cidade</span>
+                        </div>
+                        <div class="medium-9 columns">
+                            {{ Form::select('cidade', array('0'=>'Selecione o estado'), '', array('id'=>'cidade')) }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="medium-1 columns">
-                <button class="button tiny radius" title="Pesquisar" type="submit"><i class="fi-magnifying-glass pesquisa"></i></button>
+                <div class="medium-1 columns">
+                    <button class="button tiny radius alert" title="Pesquisar" type="submit"><i class="fi-magnifying-glass pesquisa"></i></button>
 
+                </div>
+                {{Form::close()}}
             </div>
-            {{Form::close()}}
         </div>
     </div>
 </div>
@@ -46,7 +48,7 @@
             <li><img src="{{ URL::to('/')}}/img/banner/2.jpg" /></li>
             <li><img src="{{ URL::to('/')}}/img/banner/3.jpg" /></li>
             <li><img src="{{ URL::to('/')}}/img/banner/4.jpg" /></li>
-            <li><img src="{{ URL::to('/')}}/img/banner/4.jpg" /></li>
+            <li><img src="{{ URL::to('/')}}/img/banner/5.jpg" /></li>
         </ul>
     </div>
 </div>
@@ -84,6 +86,7 @@
                             {{ Form::select('cidade', array('0'=>'Todos'), '', array('id'=>'cidade_fil')) }}
                         </div>
                     </div>
+                    <br />
                     {{ Form::button('Filtrar', array('type'=>'submit', 'class'=>'button small expand', 'title'=>'Redefinir pesquisa')) }}
 
                     {{Form::close()}}
@@ -101,51 +104,53 @@
                     <br />
                     <h4 ><strong>Parceiros</strong></h4>
                     <hr />
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            1
+                    <div class="lateral">
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
                         </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                            </div>
+                        </div>   
                     </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            2
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            3
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            4
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            5
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            6
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            7
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            8
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="medium-12 columns">
-                            9
-                        </div>
-                    </div>                    
                 </div>
             </div> <!-- Fim area do sidebar -->
         </div>

@@ -16,10 +16,32 @@
     background: #F2F2F2;
 }
 
+#menu ul li {
+    margin: 0; 
+    padding: 0;
+    border: 1px solid #E9E9E9;
+}
+
+#menu a:link{
+    background: #FFFFFF;
+    color: #000000;
+    padding: 0.312rem;
+    display: block;
+}
+
+#menu a:hover {
+    background: #2D4E98;
+    color: #FFFFFF;
+}
+
 #map-canvas {
     width: 31.250rem;
     height: 25rem;
     background-color: #CCC;
+}
+
+.lateral .row{
+    padding: 0.312rem 0 0 0;
 }
 
 .dados{
