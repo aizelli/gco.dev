@@ -16,7 +16,7 @@ class CompanyController extends BaseController {
     public function createCompanies() {
 
         $categorias = Category::where('parent_id', '=', null)->lists('name', 'id');
-        $estados = State::lists('nome', 'id');
+        $estados = State::orderBy('nome')->lists('nome', 'id');
         array_unshift($estados, "Selecione");
 
         return View::make('admin.cadastros.f_cadastro_empresa', array(
@@ -63,6 +63,9 @@ class CompanyController extends BaseController {
             $empresa->endereco = Input::get('endereco');
             $empresa->numero = Input::get('numero');
             $empresa->complemento = Input::get('complemento');
+            if (Input::get('coord') != null) {
+                $empresa->coordenadas = Input::get('coord');
+            }
             $empresa->categories_id = Input::get('categoria');
             $empresa->ativo = 1;
             if (Input::get('destaque') == 1) {
@@ -83,12 +86,12 @@ class CompanyController extends BaseController {
 
         $empresa = Company::find($id);
         if (
-                Input::get('site') != null &&
-                Input::get('face') != null &&
-                Input::get('google') != null &&
-                Input::get('twiter') != null &&
-                Input::get('linkedin') != null &&
-                Input::get('youtube') != null &&
+                Input::get('site') != null ||
+                Input::get('face') != null ||
+                Input::get('google') != null ||
+                Input::get('twiter') != null ||
+                Input::get('linkedin') != null ||
+                Input::get('youtube') != null ||
                 Input::get('istagram') != null
         ) {
             $social = new Network;
@@ -97,7 +100,7 @@ class CompanyController extends BaseController {
             $social->site_url = Input::get('site');
             $social->link_fb = Input::get('face');
             $social->link_gp = Input::get('google');
-            $social->link_tw = Input::get('twiter');
+            $social->link_tw = Input::get('twitter');
             $social->link_li = Input::get('linkedin');
             $social->link_yt = Input::get('youtube');
             $social->link_is = Input::get('istagram');
@@ -141,10 +144,155 @@ class CompanyController extends BaseController {
         return Redirect::to('painel/admin');
     }
 
+    public function showCompanies() {
+
+        $empresas = Company::paginate(10);
+
+        return View::make('admin.listas.lista_empresas', array(
+                    'dados' => $empresas
+        ));
+    }
+
+    public function editCompanies($id) {
+
+        $empresas = Company::find($id);
+        $estados = State::lists('nome', 'id');
+        array_unshift($estados, 'Selecione');
+        $categorias = Category::where('parent_id', '=', null)->lists('name', 'id');
+
+        return View::make('admin.edições.f_editar_empresa', array(
+                    'dados' => $empresas,
+                    'estados' => $estados,
+                    'categorias' => $categorias
+        ));
+    }
+
+    public function editImgCompany($id) {
+
+        return View::make('admin.edições.f_editar_empresa_img', array(
+                    'id' => $id
+        ));
+    }
+
+    public function updateCompanies($id) {
+
+        $empresa = Company::find($id);
+
+        $empresa->razao_social = Input::get('razao');
+        $empresa->nome_emp = Input::get('nome_emp');
+        $empresa->cpfcnpj = Input::get('cpfcnpj');
+        $empresa->ie = Input::get('ie');
+        $empresa->nome_resp = Input::get('nome_res');
+        $empresa->email = Input::get('email_emp');
+        $empresa->descricao = Input::get('descricao');
+        $empresa->telefone1 = Input::get('tel1');
+        $empresa->telefone2 = Input::get('tel2');
+        $empresa->celular = Input::get('tel3');
+        $empresa->cep = Input::get('cep');
+        $empresa->estado = Input::get('uf');
+        $empresa->cidade = Input::get('cidade');
+        $empresa->bairro = Input::get('bairro');
+        $empresa->endereco = Input::get('endereco');
+        $empresa->numero = Input::get('numero');
+        $empresa->complemento = Input::get('complemento');
+        if (Input::get('coord') != null) {
+            $empresa->coordenadas = Input::get('coord');
+        }
+        $empresa->categories_id = Input::get('categoria');
+        $empresa->sub1_id = Input::get('sub1');
+        $empresa->ativo = 1;
+        if (Input::get('destaque') == 1) {
+            $empresa->tipo = 1;
+        } else {
+            $empresa->tipo = 0;
+        }
+
+        if (
+                Input::get('site') != null ||
+                Input::get('face') != null ||
+                Input::get('google') != null ||
+                Input::get('twiter') != null ||
+                Input::get('linkedin') != null ||
+                Input::get('youtube') != null ||
+                Input::get('istagram') != null
+        ) {
+            $social = Network::where('companies_id', '=', $id)->get();
+
+            if (count($social) > 0) {
+                
+                $social->site_url = Input::get('site');
+                $social->link_fb = Input::get('face');
+                $social->link_gp = Input::get('google');
+                $social->link_tw = Input::get('twiter');
+                $social->link_li = Input::get('linkedin');
+                $social->link_yt = Input::get('youtube');
+                $social->link_is = Input::get('istagram');
+
+                $social->save();
+                
+            } else {
+                $social = new Network;
+                
+                $social->companies_id = $id;
+                $social->site_url = Input::get('site');
+                $social->link_fb = Input::get('face');
+                $social->link_gp = Input::get('google');
+                $social->link_tw = Input::get('twitter');
+                $social->link_li = Input::get('linkedin');
+                $social->link_yt = Input::get('youtube');
+                $social->link_is = Input::get('istagram');
+
+                $social->save();
+            }
+        }
+
+        $empresa->save();
+
+        return Redirect::to('admin/listar/empresas');
+    }
+
+    public function updateImgCompany($id) {
+
+        $empresa = Company::find($id);
+
+        $destino = public_path() . "/img/empresas/$empresa->razao_social";
+
+        if (Input::hasFile('arte')) {
+            $nome = "arte_" . $empresa->razao_social . "." . Input::file('arte')->getClientOriginalExtension();
+            $arte = Input::file('arte');
+            $arte->move($destino, $nome);
+        }
+        if (Input::hasFile('img1')) {
+            $nome = "img1_" . $empresa->razao_social . "." . Input::file('img1')->getClientOriginalExtension();
+            $img = Input::file('img1');
+            $img->move($destino, $nome);
+        }
+        if (Input::hasFile('img2')) {
+            $nome = "img2_" . $empresa->razao_social . "." . Input::file('img2')->getClientOriginalExtension();
+            $img = Input::file('img2');
+            $img->move($destino, $nome);
+        }
+        if (Input::hasFile('img3')) {
+            $nome = "img3_" . $empresa->razao_social . "." . Input::file('img3')->getClientOriginalExtension();
+            $img = Input::file('img3');
+            $img->move($destino, $nome);
+        }
+        if (Input::hasFile('img4')) {
+            $nome = "img4_" . $empresa->razao_social . "." . Input::file('img4')->getClientOriginalExtension();
+            $img = Input::file('img4');
+            $img->move($destino, $nome);
+        }
+        if (Input::hasFile('img5')) {
+            $nome = "img5_" . $empresa->razao_social . "." . Input::file('img5')->getClientOriginalExtension();
+            $img = Input::file('img5');
+            $img->move($destino, $nome);
+        }
+    }
+
     public function showCompany($id) {
 
         $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
-        $estados = State::lists('nome', 'id');
+        $estados = State::orderBy('nome')->lists('nome', 'id');
         array_unshift($estados, 'Selecione a UF');
         $empresa = Company::join('states', 'states.id', '=', 'companies.estado')
                 ->join('cities', 'cities.id', '=', 'companies.cidade')
@@ -195,7 +343,7 @@ class CompanyController extends BaseController {
     }
 
     public function pesquisaRegiao() {
-        $estados_fil = $estados = State::lists('nome', 'id');
+        $estados_fil = $estados = State::orderBy('nome')->lists('nome', 'id');
         array_unshift($estados, 'Selecione');
         array_unshift($estados_fil, 'Todos');
         $categorias = Category::where('parent_id', '=', null)->orderBy('id')->lists('name', 'id');
@@ -227,11 +375,11 @@ class CompanyController extends BaseController {
                         . '<div class = "row">'
                         . '<div class = "medium-7 columns">'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '">'
-                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp">'
+                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
                         . '</a>'
                         . '</div>'
                         . '<div class = "medium-5 columns dados" >'
-                        . '<strong>' . strtoupper($empresa->nome_emp) . '</strong><br />'
+                        . '<strong style="text-transform: uppercase;">' . $empresa->nome_emp . '</strong><br />'
                         . $empresa->nome . ' - ' . $empresa->sigla . '<br />'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '"><small>+ detalhes</small></a>'
                         . '</div>'
@@ -266,7 +414,7 @@ class CompanyController extends BaseController {
 
     public function pesquisaPorCategoria($id) {
 
-        $estados_fil = $estados = State::lists('nome', 'id');
+        $estados_fil = $estados = State::orderBy('nome')->lists('nome', 'id');
         array_unshift($estados, 'Selecione');
         array_unshift($estados_fil, 'Todos');
         $pesquisa = Input::get('pesquisa') != null ? Input::get('pesquisa') : '%';
@@ -284,7 +432,7 @@ class CompanyController extends BaseController {
                 ->get();
         $sub = Category::where('parent_id', '=', $id)->orderBy('name')->lists('name', 'id');
         $categoria = Category::select('name', 'id')->find($id);
-        
+
         if (count($empresas) > 0) {
             $tabela = '<div class = "medium-12 columns">'; //vai guardar a tabela conforme vai ser montada
             $linha = ''; //guarda cada linha, conforme for sendo montada
@@ -297,11 +445,11 @@ class CompanyController extends BaseController {
                         . '<div class = "row">'
                         . '<div class = "medium-7 columns">'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '">'
-                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp">'
+                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
                         . '</a>'
                         . '</div>'
                         . '<div class = "medium-5 columns dados" >'
-                        . '<strong>' . strtoupper($empresa->nome_emp) . '</strong><br />'
+                        . '<strong style="text-transform: uppercase;">' . $empresa->nome_emp . '</strong><br />'
                         . $empresa->nome . ' - ' . $empresa->sigla . '<br />'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '"><small>+ detalhes</small></a>'
                         . '</div>'
@@ -336,7 +484,7 @@ class CompanyController extends BaseController {
 
     public function pesquisaAvancada() {
         $id = Input::get('categoria');
-        $estados = State::lists('nome', 'id');
+        $estados = State::orderBy('nome')->lists('nome', 'id');
         array_unshift($estados, 'Selecione');
         $sub = Category::where('parent_id', '=', $id)->orderBy('name')->lists('name', 'id');
         $categoria = Category::select('name', 'id')->find($id);
@@ -376,11 +524,11 @@ class CompanyController extends BaseController {
 
                 $linha .= '<td>'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '">'
-                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . 'class="art-emp img-responsive">'
+                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . 'class="art-emp" />'
                         . '</a>'
                         . '</td>'
                         . '<td>'
-                        . '<strong>' . strtoupper($empresa->nome_emp) . '</strong><br />'
+                        . '<strong style="text-transform: uppercase;">' . $empresa->nome_emp . '</strong><br />'
                         . $empresa->nome . ' - ' . $empresa->sigla . '<br />'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '"class="small">+ detalhes</a>'
                         . '</td>';

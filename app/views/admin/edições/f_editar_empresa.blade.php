@@ -1,292 +1,217 @@
 @extends('templates.default')
 @section('conteudo')
+<div class="row">
+    <div class="off-canvas-wrap" data-offcanvas>
+        <div class="inner-wrap">
+            <nav class="tab-bar">
+                <section class="left-small">
+                    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+                </section>
 
-<div class="wrapper" role="main">
-    <div class="container">
-        <div class="row">
-            <div id="logo" class="col-md-12 col-lg-12">
-                <h4>logo</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div id="menu">
-                @if(Auth::check())
-                @include('includes.menuadmin')
-                @else
-                @include('includes.menu')
-                @endif
-            </div>
-        </div>
-        <div class="row">
-            <div id="corpo">
-                <div id="conteudo" class="col-md-offset-1 col-sm-offset-1 col-lg-offset-1 col-md-10 col-sm-10 col-lg-10"><!-- Inicio da area do conteudo -->
-                    {{Form::open(array('method'=>'post', 'url'=>'admin/cadastro/empresa', 'files'=>true))}}
-                    <h3>Dados da empresa</h3>
-                    <hr />
-                    @if ( count($errors) > 0)
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>Erro(s) encontrado(s):</strong>
-                        <ul>
-                            @foreach ($errors->all() as $e)
-                            <li>{{ $e }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                    @if (isset($ok))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>Registro salvo com sucesso!</strong>
-                    </div>
-                    @endif
-                    <p class="small"><i>OBS: Os campos marcados com * são obrigatórios.</i></p>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                {{ Form::label('razao', 'Razão Social*') }}
-                                {{ Form::text('razao','',array('class'=>'form-control', 'id'=>'razao')) }}
-                            </div>
+                <section class="middle tab-bar-section">
+                    <h1 class="title">Painel Administrativo</h1>
+                </section>
+            </nav>
+            <aside class="left-off-canvas-menu">
+                <ul class="off-canvas-list">
+                    <li><label>Cadastros</label></li>
+                    <li><a href="{{URL::to('admin/cadastro/usuario')}}">Usuários</a></li>
+                    <li><a href="{{URL::to('admin/cadastro/empresa')}}">Empresas</a></li>
+                    <li><a href="{{URL::to('admin/cadastro/categoria')}}">Categorias</a></li>
+                    <li><a href="{{URL::to('admin/cadastro/regiao')}}">Regiões</a></li>
+                </ul>
+                <ul class="off-canvas-list">
+                    <li><label>Gerenciar</label></li>
+                    <li><a href="{{URL::to('admin/listar/usuarios')}}">Usuários</a></li>
+                    <li><a href="{{URL::to('admin/listar/empresas')}}">Empresas</a></li>
+                    <li><a href="{{URL::to('admin/listar/categorias')}}">Categorias</a></li>
+                    <li><a href="{{URL::to('admin/listar/regioes')}}">Regiões</a></li>
+                </ul>
+            </aside>
+            <section class="main-section" style="min-height: 500px">
+                <div class="row">
+                    <div class="medium-12 columns">
+                        {{Form::open(array('method'=>'post', 'url'=>"admin/editar/empresa/$dados->id"))}}
+                        <h3>Dados da empresa</h3>
+                        <hr />
+                        @if ( count($errors) > 0)
+                        <div>
+                            <strong>Erro(s) encontrado(s):</strong>
+                            <ul>
+                                @foreach ($errors->all() as $e)
+                                <li>{{ $e }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                {{ Form::label('nome_emp', 'Nome Fantasia') }}
-                                {{ Form::text('nome_emp','',array('class'=>'form-control', 'id'=>'nome_emp')) }}
-                            </div>
+                        @endif
+                        @if (isset($ok))
+                        <div>
+                            <strong>Registro atualizado com sucesso!</strong>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                {{ Form::label('cnpj','CNPJ*') }} <small><i>(Apenas números)</i></small>
-                                {{ Form::text('cnpj','',array('class'=>'form-control', 'id'=>'cnpj')) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6 col-sm-6">
-                                {{ Form::label('ie','Inscrição Estadual') }} <small><i>(Apenas números)</i></small>
-                                {{ Form::text('ie','',array('class'=>'form-control', 'id'=>'ie')) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                {{ Form::label('nome_res', 'Nome do Responsável*') }}
-                                {{ Form::text('nome_res','',array('class'=>'form-control', 'id'=>'nome_res')) }}
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                {{ Form::label('email_emp', 'E-mail de Contato*') }}
-                                {{ Form::text('email_emp','',array('class'=>'form-control', 'id'=>'email_emp')) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
-                                {{ Form::label('site', 'Web Site') }}
-                                {{ Form::text('site','',array('class'=>'form-control', 'id'=>'site')) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="form-group">
-                                {{ Form::label('descricao', 'Resumo*') }}
-                                {{ Form::textarea('descricao', null, array('rows'=>'5', 'class'=>'form-control', 'id'=>'descricao')) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('tel1', 'Telefone Contato 1*') }}
-                                <div class="row">
-                                    <div class="col-xs-4 col-md-4 col-sm-4">
-                                        {{ Form::text('ddd_tel1','',array('class'=>'form-control', 'id'=>'tel1', 'maxlength'=>'2', 'placeholder'=>'DDD')) }}
-                                    </div>
-                                    <div class="col-xs-8 col-md-8 col-sm-8">
-                                        {{ Form::text('tel1','',array('class'=>'form-control', 'id'=>'tel1', 'maxlength'=>'8', 'placeholder'=>'Ex: "12341234"')) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('tel2', 'Telefone Contato 2') }}
-                                <div class="row">
-                                    <div class="col-xs-4 col-md-4 col-sm-4">
-                                        {{ Form::text('ddd_tel2','',array('class'=>'form-control', 'id'=>'tel2', 'maxlength'=>'2', 'placeholder'=>'DDD')) }}
-                                    </div>
-                                    <div class="col-xs-8 col-md-8 col-sm-8">
-                                        {{ Form::text('tel2','',array('class'=>'form-control', 'id'=>'tel2', 'maxlength'=>'8', 'placeholder'=>'Ex: "12341234"')) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('cel', 'Telefone Celular') }}
-                                <div class="row">
-                                    <div class="col-xs-4 col-md-4 col-sm-4">
-                                        {{ Form::text('ddd_cel','',array('class'=>'form-control', 'id'=>'cel', 'maxlength'=>'2', 'placeholder'=>'DDD')) }}
-                                    </div>
-                                    <div class="col-xs-8 col-md-8 col-sm-8">
-                                        {{ Form::text('cel','',array('class'=>'form-control', 'id'=>'cel', 'maxlength'=>'9', 'placeholder'=>'Ex: "912341234"')) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('cep', 'CEP*') }}
-                                <div class="row">
-                                    <div class="col-xs-8 col-md-8 col-sm-8">
-                                        {{ Form::text('cep1','',array('class'=>'form-control', 'id'=>'cep', 'maxlength'=>'5', 'placeholder'=>'00000')) }}
-                                    </div>
-                                    <div class="col-xs-4 col-md-4 col-sm-4">
-                                        {{ Form::text('cep2','',array('class'=>'form-control', 'id'=>'cep', 'maxlength'=>'3', 'placeholder'=>'000')) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('estado', 'Estado*') }}
-                                {{ Form::select('estado', $estados, 26, array('class'=>'form-control')) }}
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('cidade', 'Cidade*') }}
-                                {{ Form::select('cidade', $cidades, 1, array('class'=>'form-control')) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('bairro', 'Bairro*') }}
-                                {{ Form::text('bairro','',array('class'=>'form-control', 'id'=>'bairro')) }}
-                            </div>
-                        </div>
-                        <div class="col-md-8 col-sm-8">
-                            <div class="form-group">
-                                {{ Form::label('endereco', 'Endereço*') }}
-                                {{ Form::text('endereco','',array('class'=>'form-control', 'id'=>'endereco')) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
+                        @endif
                         <div class="row">
-                            <div class="col-md-2 col-sm-2">
+                            <div class="medium-6 columns">
+                                {{ Form::label('razao', 'Razão Social') }}
+                                {{ Form::text('razao',$dados->razao_social,array('id'=>'razao')) }}
+                            </div>
+                            <div class="medium-6 columns">
+                                {{ Form::label('nome_emp', 'Nome Fantasia') }}
+                                {{ Form::text('nome_emp',$dados->nome_emp,array('id'=>'nome_emp')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                {{ Form::label('cpfcnpj','CPF/CNPJ*') }} <small><i>(Apenas números)</i></small>
+                                {{ Form::text('cpfcnpj',$dados->cpfcnpj,array('id'=>'cpfcnpj')) }}
+                            </div>
+                            <div class="medium-6 columns">
+                                {{ Form::label('ie','Inscrição Estadual') }} <small><i>(Apenas números)</i></small>
+                                {{ Form::text('ie',$dados->ie,array('id'=>'ie')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-6 columns">
+                                {{ Form::label('nome_res', 'Nome do Responsável*') }}
+                                {{ Form::text('nome_res',$dados->nome_resp,array('id'=>'nome_res')) }}
+                            </div>
+                            <div class="medium-6 columns">
+                                {{ Form::label('email_emp', 'E-mail de Contato*') }}
+                                {{ Form::text('email_emp',$dados->email,array('id'=>'email_emp')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-12 columns">
+                                {{ Form::label('descricao', 'Resumo*') }}
+                                {{ Form::textarea('descricao', $dados->descricao, array('rows'=>'5', 'id'=>'descricao')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('tel1', 'Telefone Contato 1*') }}
+                                {{ Form::text('tel1',$dados->telefone1,array('id'=>'tel1', 'maxlength'=>'11')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('tel2', 'Telefone Contato 2') }}
+                                {{ Form::text('tel2',$dados->telefone2,array('id'=>'tel2', 'maxlength'=>'11')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('tel3', 'Telefone Contato 3') }}
+                                {{ Form::text('tel3',$dados->celular,array('id'=>'cel', 'maxlength'=>'11')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                <div class="form-group">
+                                    {{ Form::label('cep', 'CEP*') }}
+                                    {{ Form::text('cep',$dados->cep,array('id'=>'cep', 'maxlength'=>'8')) }}
+                                </div>
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('uf', 'Estado*') }}
+                                {{ Form::select('uf', $estados, $dados->estado) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('cidade', 'Cidade*') }}
+                                {{ Form::select('cidade', array('0'=>'Selecione o estado'), $dados->cidade) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('bairro', 'Bairro*') }}
+                                {{ Form::text('bairro',$dados->bairro,array( 'id'=>'bairro')) }}
+                            </div>
+                            <div class="medium-8 columns">
+                                {{ Form::label('endereco', 'Endereço*') }}
+                                {{ Form::text('endereco',$dados->endereco,array( 'id'=>'endereco')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-2 columns">
                                 {{ Form::label('numero', 'Número*') }}
-                                {{ Form::text('numero','',array('class'=>'form-control', 'id'=>'numero')) }}
+                                {{ Form::text('numero',$dados->numero,array('id'=>'numero')) }}
                             </div>
-                            <div class="col-xs-10 col-md-10 col-sm-10">
+                            <div class="medium-8 columns">
                                 {{ Form::label('complemento', 'Complemento') }}
-                                {{ Form::text('complemento','',array('class'=>'form-control', 'id'=>'complemento')) }}
+                                {{ Form::text('complemento',$dados->complemento,array('id'=>'complemento')) }}
+                            </div>
+                            <div class="medium-2 columns">
+                                {{ Form::label('coord', 'Coordenadas Geogáficas') }}
+                                {{ Form::text('coord',$dados->coordenadas,array('id'=>'coord')) }}
                             </div>
                         </div>
-                    </div>
-                    <hr />
-                    <h3>Informações do Contrato <button class="btn btn-default" type="button"><span class="caret"></span></button></h3>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('tipo_con', 'Tipo de Contrato*') }}
-                                {{ Form::select('tipo_con', array(
-                                        '0'=>'selecione'
-                                        ), '0', array('class'=>'form-control')) }}
+                        <hr />
+                        <h3>Dados complementares</h3>
+                        <hr />
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('categoria', 'Categoria Principal*') }}
+                                {{ Form::select('categoria', $categorias, $dados->categories_id, array('id'=>'cat')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('sub1', 'Sub-Categoria 1*') }}
+                                {{ Form::select('sub1', array('0'=>'Selecione a categoria'), $dados->sub1_id, array('id'=>'sub1')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('sub2', 'Sub-Categoria 2') }}
+                                {{ Form::select('sub2', array('0'=>'Selecione a categoria'), '', array('id'=>'sub2')) }}
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('dias_con', 'Prazo do contrato (dias)*') }}
-                                {{ Form::select('dias_con', array(
-                                        '0'=>'selecione'
-                                        ), '0', array('class'=>'form-control')) }}
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                @if($dados->tipo == 1)
+                                {{ Form::checkbox('destaque', 1, true) }} {{ Form::label('destaque', 'Plano destaque') }}
+                                @else
+                                {{ Form::checkbox('destaque', 1) }} {{ Form::label('destaque', 'Plano destaque') }}
+                                @endif
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('valor_con', 'Valor do contrato (dias)*') }}
-                                {{ Form::text('valor_con','',array('class'=>'form-control', 'id'=>'valor')) }}
+                        <hr />
+                        <h3>Rede sociais </h3>
+                        <hr />
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('site', 'Site') }}
+                                {{ Form::text('site','',array('id'=>'site')) }}
                             </div>
+
                         </div>
-                    </div>
-                    <hr />
-                    <h3>Redes Sociais <button class="btn btn-default" type="button"><span class="caret"></span></button></h3>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
+                        <div class="row">
+                            <div class="medium-4 columns">
                                 {{ Form::label('face', 'Facebook') }}
-                                {{ Form::text('face','',array('class'=>'form-control', 'id'=>'face')) }}
+                                {{ Form::text('face','',array('id'=>'face')) }}
                             </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
+                            <div class="medium-4 columns">
                                 {{ Form::label('google', 'Google+') }}
-                                {{ Form::text('google','',array('class'=>'form-control', 'id'=>'google')) }}
+                                {{ Form::text('google','',array('id'=>'google')) }}
                             </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
+                            <div class="medium-4 columns">
                                 {{ Form::label('twitter', 'Twitter') }}
-                                {{ Form::text('twitter','',array('class'=>'form-control', 'id'=>'twitter')) }}
+                                {{ Form::text('twitter','',array('id'=>'twitter')) }}
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('istagram', 'Istagram') }}
+                                {{ Form::text('istagram','',array('id'=>'isntagram')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('youtube', 'YouTube') }}
+                                {{ Form::text('youtube','',array('id'=>'youtube')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('linkedin', 'Linkedin') }}
+                                {{ Form::text('linkedin','',array('id'=>'linkedin')) }}
+                            </div>
+                        </div>
+                        <p><small><i>OBS1: Os campos marcados com * são obrigatórios.</i></small></p>
+                        <p><small><i>OBS2: Antes de <strong>Salvar</strong> verificar se os campos <strong>Estado, Cidade, Categoria e SubCategoria</strong> foram selecionados.</i></small></p>
+                        {{ Form::button('Salvar', array('type'=>'submit', 'class'=>'button', 'title'=>'Salvar alterações')) }}
+                        {{Form::close()}}
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('isntagran', 'Instagran') }}
-                                {{ Form::text('isntagran','',array('class'=>'form-control', 'id'=>'isntagran')) }}
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('needid', 'Needid') }}
-                                {{ Form::text('needid','',array('class'=>'form-control', 'id'=>'needid')) }}
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-                    <h3>Informações Adicionais <button class="btn btn-default" type="button"><span class="caret"></span></button></h3>
-                    <hr />
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="form-group">
-                                {{ Form::label('categoria', 'Categoria*') }}
-                                <select name="categoria" class="form-control">
-                                    <option value="0" selected="selected">Selecione</option>
-                                    @foreach($categorias as $c)
-                                    <optgroup label="{{ucwords($c->name)}}">
-                                        @foreach($c->getDescendants() as $descendant) 
-                                        <option value="{{$descendant->id}}">
-                                            {{ucwords($descendant->name)}}
-                                        </option>
-                                        @endforeach
-                                    </optgroup>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <br />
-                    {{ Form::button('Salvar', array('type'=>'submit', 'class'=>'btn btn-default', 'title'=>'Cadastrar Usuário')) }}
-                    <br /><br />
-                    {{Form::close()}}
-                </div><!-- Fim area do conteudo -->
-            </div>
+            </section>
+            <a class="exit-off-canvas"></a>
         </div>
     </div>
 </div>
+
 @stop

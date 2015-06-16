@@ -136,9 +136,13 @@
                                 {{ Form::label('numero', 'Número*') }}
                                 {{ Form::text('numero','',array('id'=>'numero')) }}
                             </div>
-                            <div class="medium-10 columns">
+                            <div class="medium-8 columns">
                                 {{ Form::label('complemento', 'Complemento') }}
                                 {{ Form::text('complemento','',array('id'=>'complemento')) }}
+                            </div>
+                            <div class="medium-2 columns">
+                                {{ Form::label('coord', 'Coordenadas Geogáficas') }}
+                                {{ Form::text('coord','',array('id'=>'coord')) }}
                             </div>
                         </div>
                         <hr />
@@ -147,7 +151,7 @@
                         <div class="row">
                             <div class="medium-4 columns">
                                 {{ Form::label('categoria', 'Categoria Principal*') }}
-                                {{ Form::select('categoria', $categorias, 0) }}
+                                {{ Form::select('categoria', $categorias, 0, array('id'=>'cat')) }}
                             </div>
                             <div class="medium-4 columns">
                                 {{ Form::label('sub1', 'Sub-Categoria 1*') }}

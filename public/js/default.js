@@ -24,6 +24,20 @@ $(document).ready(function () {
         });
     });
     
+    $('#cat').change(function () {
+        var baseUrl = document.location.origin + '/gco.dev/public/dropdown_sub/';
+        $.get(baseUrl + $(this).val(), {option: $(this).val()}, function (data) {
+            $('#sub1').empty();
+            $.each(data, function (key, element) {
+                $('#sub1').append("<option value='" + element + "'>" + key + "</option>");
+            });
+            $('#sub2').empty();
+            $.each(data, function (key, element) {
+                $('#sub2').append("<option value='" + element + "'>" + key + "</option>");
+            });
+        });
+    });
+    
     $('#cat_fil').change(function () {
         var baseUrl = document.location.origin + '/gco.dev/public/dropdown_sub/';
         $.get(baseUrl + $(this).val(), {option: $(this).val()}, function (data) {

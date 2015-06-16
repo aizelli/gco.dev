@@ -17,12 +17,13 @@
 }
 
 #menu ul li {
+    font-size: 0.875rem;
     margin: 0; 
     padding: 0;
     border: 1px solid #E9E9E9;
 }
 
-#menu a:link{
+#menu a:link, a:visited{
     background: #FFFFFF;
     color: #000000;
     padding: 0.312rem;

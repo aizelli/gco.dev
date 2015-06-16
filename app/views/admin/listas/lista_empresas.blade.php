@@ -32,7 +32,7 @@
             <section class="main-section" style="min-height: 500px">
                 <div class="row">
                     <div class="medium-12 columns"><!-- Inicio da area do conteudo -->
-                        <h3>Lista de Usuários</h3>
+                        <h3>Lista de Empresas</h3>
                         @if ( isset($ok))
                         <div>
                             <strong>Dados alterados com sucesso!</strong>
@@ -49,7 +49,7 @@
                                     <td><strong>Código</strong></td>
                                     <td><strong>Nome</strong></td>
                                     <td><strong>E-mail</strong></td>
-                                    <td><strong>Usuário</strong></td>
+                                    <td><strong>Responsável</strong></td>
                                     <td></td>
                                 </tr>
                             </thead>
@@ -57,17 +57,18 @@
                                 @foreach($dados as $d)
                                 <tr>
                                     <td>{{$d->id}}</td>
-                                    <td>{{$d->nome}}</td>
+                                    <td>{{$d->nome_emp}}</td>
                                     <td>{{$d->email}}</td>
-                                    <td>{{$d->usuario}}</td>
+                                    <td>{{$d->nome_resp}}</td>
                                     <td>
-                                        {{Form::open(array('method'=>'post', 'url'=>"admin/excluir/usuario/$d->id"))}}
+                                        {{Form::open(array('method'=>'post', 'url'=>"admin/excluir/empresa/$d->id"))}}
                                         {{Form::hidden('_method', 'DELETE') }}
                                         <ul class="button-group round">
-                                            <li><a href="{{URL::to("admin/editar/usuario/$d->id")}}" class="button secondary tiny" title="Editar dados"><i class="fi-pencil" style="font-size: 1.125rem"></i></a></li>
-                                            <li><button class="button secondary tiny" title="Excluir registro" type="submit"><i class="fi-trash" style="font-size: 1.125rem"></i></button></li>
+                                            <li><a href="{{URL::to("admin/editar/empresa/$d->id")}}" class="button secondary tiny" title="Editar dados"><i class="fi-pencil" style="font-size: 1rem"></i></a></li>
+                                            <li><a href="{{URL::to("admin/empresa/imagens/$d->id")}}" class="button secondary tiny" title="Editar imagens"><i class="fi-photo" style="font-size: 1rem"></i></a></li>
+                                            <li><button class="button secondary tiny" title="Excluir registro" type="submit"><i class="fi-trash" style="font-size: 1rem"></i></button></li>
                                         </ul>
-                                        {{Form::close()}}
+                                        {{Form::close() }}
                                     </td>
                                 </tr>
                                 @endforeach

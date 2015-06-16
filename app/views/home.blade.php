@@ -2,7 +2,7 @@
 @section('conteudo')
 <div class="row">
     <div class="medium-2 columns">
-        <img src="{{ URL::to('/')}}/img/logo2.png"/>
+        <img src="{{ URL::to('/')}}/img/logo2.png" alt="GuiaWebRegiao"/>
     </div>
     <div class="medium-10 columns" >
         <div class="form-pesquisa" style="background-color: #2D4E98">
@@ -43,11 +43,11 @@
 <div class="row">
     <div class="medium-12 columns">
         <ul class="bxslider">
-            <li><img src="{{URL::to('/')}}/img/banner/1.jpg" /></li>
-            <li><img src="{{URL::to('/')}}/img/banner/2.jpg" /></li>
-            <li><img src="{{URL::to('/')}}/img/banner/3.jpg" /></li>
-            <li><img src="{{URL::to('/')}}/img/banner/4.jpg" /></li>
-            <li><img src="{{URL::to('/')}}/img/banner/5.jpg" /></li>
+            <li><img src="{{URL::to('/')}}/img/banner/1.jpg" alt="Anuncio Topo 1"/></li>
+            <li><img src="{{URL::to('/')}}/img/banner/2.jpg" alt="Anuncio Topo 2"/></li>
+            <li><img src="{{URL::to('/')}}/img/banner/3.jpg" alt="Anuncio Topo 3"/></li>
+            <li><img src="{{URL::to('/')}}/img/banner/4.jpg" alt="Anuncio Topo 4"/></li>
+            <li><img src="{{URL::to('/')}}/img/banner/5.jpg" alt="Anuncio Topo 5"/></li>
         </ul>
     </div>
 </div>
@@ -83,47 +83,47 @@
             <div class="lateral">
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <a href="{{URL::to('/')}}/empresa/detalhes/10"><img src="{{URL::to('/')}}/img/lateral/rosadu_lateral.jpg" alt="Rosa Du - Loja"/></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 2" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 3" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 4" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 5" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 6" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 7" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 8" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" />
+                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 9" />
                     </div>
                 </div>   
             </div>

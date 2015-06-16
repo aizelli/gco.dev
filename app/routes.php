@@ -35,6 +35,9 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('admin/cadastro/empresa', 'CompanyController@createCompanies');
     Route::post('admin/cadastro/empresa', 'CompanyController@storeCompanies');
     Route::post('admin/cadastro/empresa/dados_adicionais/{id}', 'CompanyController@storeCompInfo');
+    Route::get('admin/listar/empresas', 'CompanyController@showCompanies');
+    Route::get('admin/empresa/imagens/{id}', 'CompanyController@editImgCompany');
+    Route::post('admin/empresa/imagens/{id}', 'CompanyController@updateImgCompany');
     Route::get('admin/editar/empresa/{id}', 'CompanyController@editCompanies');
     Route::post('admin/editar/empresa/{id}', 'CompanyController@updateCompanies');
     Route::get('admin/cadastro/categoria', 'CategoryController@createCategories');
