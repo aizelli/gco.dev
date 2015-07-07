@@ -1,5 +1,5 @@
 #conteudo{
-    min-height: 46.25rem;
+    min-height: 30rem;
 }
 
 #lateral-esquerda{
@@ -69,7 +69,22 @@
     padding: 0.625rem 0 0 0;
 }
 
+.footer nav{
+    padding-top: 4.0rem;
+    font-size: 0.875rem;
+    color: #E9E9E9;
+}
+
+.footer a{
+    color: #C0C0C0;
+}
+
+.footer a:hover{
+    color: #FFFFFF;
+}
+
 .footer p{
     color: #d0d0d0;
     font-size: 0.875rem;
+    padding: 0.625rem 0 0 0;
 }

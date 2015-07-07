@@ -25,7 +25,7 @@ class HomeController extends BaseController {
                     . '<div class = "row">'
                     . '<div class = "medium-7 columns">'
                     . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '">'
-                    . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
+                    . '<img src="' . URL::to('/') . str_replace(' ', '_', "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg") . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
                     . '</a>'
                     . '</div>'
                     . '<div class = "medium-5 columns dados" >'
@@ -52,6 +52,18 @@ class HomeController extends BaseController {
                     'empresas' => $empresas,
                     'categorias' => $categorias,
                     'tabela' => $tabela,
+                    'uf' => $estados
+        ));
+    }
+
+    public function sobre() {
+
+        $estados = State::lists('nome', 'id');
+        array_unshift($estados, 'Selecione a UF');
+        $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
+
+        return View::make('sobre', array(
+                    'categorias' => $categorias,
                     'uf' => $estados
         ));
     }

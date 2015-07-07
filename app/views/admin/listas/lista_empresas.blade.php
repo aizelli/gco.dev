@@ -43,6 +43,20 @@
                             <strong>Dados apagados com sucesso!</strong>
                         </div>
                         @endif
+                        {{Form::open(array('method'=>'post', 'url'=>"admin/filtrar/empresa/"))}}
+                        <div class="row">
+                            <div class="medium-2 columns">
+                                <input type="radio" name="tipo" value="1" id="id"><label for="id">ID</label><br />
+                                <input type="radio" name="tipo" value="2" id="nome"><label for="nome">Nome da empresa</label>
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::text('valor','',array('id'=>'busca')) }}
+                            </div>
+                             <div class="medium-2 columns end">
+                                {{ Form::button('Buscar', array('type'=>'submit', 'class'=>'button', 'title'=>'Buscar empresa')) }}
+                            </div>
+                            {{Form::close()}}
+                        </div>
                         <table >
                             <thead>
                                 <tr>

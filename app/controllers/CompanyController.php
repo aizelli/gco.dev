@@ -109,34 +109,35 @@ class CompanyController extends BaseController {
         }
 
         $destino = public_path() . "/img/empresas/$empresa->razao_social";
+        $destino = str_replace(' ', '_', $destino);
 
         if (Input::hasFile('arte')) {
-            $nome = "arte_" . $empresa->razao_social . "." . Input::file('arte')->getClientOriginalExtension();
+            $nome = "arte_" . str_replace(' ','_',$empresa->razao_social) . "." . Input::file('arte')->getClientOriginalExtension();
             $arte = Input::file('arte');
             $arte->move($destino, $nome);
         }
         if (Input::hasFile('img1')) {
-            $nome = "img1_" . $empresa->razao_social . "." . Input::file('img1')->getClientOriginalExtension();
+            $nome = "01." . Input::file('img1')->getClientOriginalExtension();
             $img = Input::file('img1');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img2')) {
-            $nome = "img2_" . $empresa->razao_social . "." . Input::file('img2')->getClientOriginalExtension();
+            $nome = "02." . Input::file('img2')->getClientOriginalExtension();
             $img = Input::file('img2');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img3')) {
-            $nome = "img3_" . $empresa->razao_social . "." . Input::file('img3')->getClientOriginalExtension();
+            $nome = "03." . Input::file('img3')->getClientOriginalExtension();
             $img = Input::file('img3');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img4')) {
-            $nome = "img4_" . $empresa->razao_social . "." . Input::file('img4')->getClientOriginalExtension();
+            $nome = "04." . Input::file('img4')->getClientOriginalExtension();
             $img = Input::file('img4');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img5')) {
-            $nome = "img5_" . $empresa->razao_social . "." . Input::file('img5')->getClientOriginalExtension();
+            $nome = "05." . Input::file('img5')->getClientOriginalExtension();
             $img = Input::file('img5');
             $img->move($destino, $nome);
         }
@@ -146,11 +147,37 @@ class CompanyController extends BaseController {
 
     public function showCompanies() {
 
-        $empresas = Company::paginate(10);
+        $empresas = Company::paginate(15);
 
         return View::make('admin.listas.lista_empresas', array(
                     'dados' => $empresas
         ));
+    }
+
+    public function showCompaniesFilter() {
+
+        $tipo = Input::get('tipo');
+        $valor = Input::get('valor');
+
+        if ($tipo == 1) {
+            $empresa = Company::where('id', '=', $valor)->paginate(15);
+
+            return View::make('admin.listas.lista_empresas', array(
+                        'dados' => $empresa
+            ));
+        } elseif ($tipo == 2) {
+            $empresa = Company::where('nome_emp', 'LIKE', '%' . $valor . '%')->paginate(15);
+
+            return View::make('admin.listas.lista_empresas', array(
+                        'dados' => $empresa
+            ));
+        } else {
+            $empresas = Company::paginate(15);
+
+            return View::make('admin.listas.lista_empresas', array(
+                        'dados' => $empresas
+            ));
+        }
     }
 
     public function editCompanies($id) {
@@ -216,9 +243,15 @@ class CompanyController extends BaseController {
                 Input::get('youtube') != null ||
                 Input::get('istagram') != null
         ) {
-            $social = Network::where('companies_id', '=', $id)->get();
+            $result = Network::where('companies_id', '=', $id)->get();
 
-            if (count($social) > 0) {
+            if (count($result) > 0) {
+                
+                foreach($result as $r){
+                    $id = $r->id();
+                }
+                
+                $social = Network::find($id);
                 
                 $social->site_url = Input::get('site');
                 $social->link_fb = Input::get('face');
@@ -231,8 +264,9 @@ class CompanyController extends BaseController {
                 $social->save();
                 
             } else {
-                $social = new Network;
                 
+                $social = new Network;
+
                 $social->companies_id = $id;
                 $social->site_url = Input::get('site');
                 $social->link_fb = Input::get('face');
@@ -256,34 +290,35 @@ class CompanyController extends BaseController {
         $empresa = Company::find($id);
 
         $destino = public_path() . "/img/empresas/$empresa->razao_social";
+        $destino = str_replace(' ', '_', $destino);
 
         if (Input::hasFile('arte')) {
-            $nome = "arte_" . $empresa->razao_social . "." . Input::file('arte')->getClientOriginalExtension();
+            $nome = "arte_" . str_replace(' ','_',$empresa->razao_social) . "." . Input::file('arte')->getClientOriginalExtension();
             $arte = Input::file('arte');
             $arte->move($destino, $nome);
         }
         if (Input::hasFile('img1')) {
-            $nome = "img1_" . $empresa->razao_social . "." . Input::file('img1')->getClientOriginalExtension();
+            $nome = "01." . Input::file('img1')->getClientOriginalExtension();
             $img = Input::file('img1');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img2')) {
-            $nome = "img2_" . $empresa->razao_social . "." . Input::file('img2')->getClientOriginalExtension();
+            $nome = "02." . Input::file('img2')->getClientOriginalExtension();
             $img = Input::file('img2');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img3')) {
-            $nome = "img3_" . $empresa->razao_social . "." . Input::file('img3')->getClientOriginalExtension();
+            $nome = "03." . Input::file('img3')->getClientOriginalExtension();
             $img = Input::file('img3');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img4')) {
-            $nome = "img4_" . $empresa->razao_social . "." . Input::file('img4')->getClientOriginalExtension();
+            $nome = "04." . Input::file('img4')->getClientOriginalExtension();
             $img = Input::file('img4');
             $img->move($destino, $nome);
         }
         if (Input::hasFile('img5')) {
-            $nome = "img5_" . $empresa->razao_social . "." . Input::file('img5')->getClientOriginalExtension();
+            $nome = "5." . Input::file('img5')->getClientOriginalExtension();
             $img = Input::file('img5');
             $img->move($destino, $nome);
         }
@@ -375,7 +410,7 @@ class CompanyController extends BaseController {
                         . '<div class = "row">'
                         . '<div class = "medium-7 columns">'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '">'
-                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
+                        . '<img src="' . URL::to('/') . str_replace(' ', '_', "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg") . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
                         . '</a>'
                         . '</div>'
                         . '<div class = "medium-5 columns dados" >'
@@ -445,7 +480,7 @@ class CompanyController extends BaseController {
                         . '<div class = "row">'
                         . '<div class = "medium-7 columns">'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '">'
-                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
+                        . '<img src="' . URL::to('/') . str_replace(' ', '_', "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg") . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
                         . '</a>'
                         . '</div>'
                         . '<div class = "medium-5 columns dados" >'
@@ -524,7 +559,7 @@ class CompanyController extends BaseController {
 
                 $linha .= '<td>'
                         . '<a href="' . URL::to("/empresa/detalhes/$empresa->id") . '">'
-                        . '<img src="' . URL::to('/') . "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg" . '" alt="' . $empresa->razao_social . '"' . 'class="art-emp" />'
+                        . '<img src="' . URL::to('/') . str_replace(' ', '_', "/img/empresas/$empresa->razao_social/arte_$empresa->razao_social.jpg") . '" alt="' . $empresa->razao_social . '"' . ' class="art-emp" />'
                         . '</a>'
                         . '</td>'
                         . '<td>'

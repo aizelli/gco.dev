@@ -44,10 +44,10 @@
 <div class="row">
     <div class="medium-12 columns">
         <ul class="bxslider">
-            <li><img src="{{URL::to('/')}}/img/banner/1.jpg" alt="Anuncio Topo 1"/></li>
-            <li><img src="{{URL::to('/')}}/img/banner/2.jpg" alt="Anuncio Topo 2"/></li>
-            <li><img src="{{URL::to('/')}}/img/banner/3.jpg" alt="Anuncio Topo 3"/></li>
-            <li><img src="{{URL::to('/')}}/img/banner/4.jpg" alt="Anuncio Topo 4"/></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/18"><img src="{{URL::to('/')}}/img/banner/1.jpg" alt="Sit - Escolas de Profissões"/></a></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/19"><img src="{{URL::to('/')}}/img/banner/2.jpg" alt="Pernanbucanas"/></a></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/17"><img src="{{URL::to('/')}}/img/banner/3.jpg" alt="GamaEmpregos.com.br"/></a></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/6"><img src="{{URL::to('/')}}/img/banner/4.jpg" alt="Ferraz Extintores"/></a></li>
             <li><img src="{{URL::to('/')}}/img/banner/5.jpg" alt="Anuncio Topo 5"/></li>
         </ul>
     </div>
@@ -94,7 +94,7 @@
             </div>
             <div class="medium-8 columns"><!-- Inicio da area do conteudo -->
                 <div class="row">
-                    <h3>Resultado para {{strtoupper($categoria->name)}}</h3>
+                    <h3>Resultado para <strong style="text-transform: uppercase">{{$categoria->name}}</strong></h3>
 
                     {{$tabela}}
                 </div>
@@ -112,12 +112,12 @@
                         </div>
                         <div class="row">
                             <div class="medium-12 columns">
-                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 2" />
+                                <a href="{{URL::to('/')}}/empresa/detalhes/12"><img src="{{URL::to('/')}}/img/lateral/oliveiralocacoes_lateral.jpg" alt="Oliveira Locações"/></a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="medium-12 columns">
-                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 3" />
+                                <a href="{{URL::to('/')}}/empresa/detalhes/15"><img src="{{URL::to('/')}}/img/lateral/engadriano_lateral.jpg" alt="Eng. Adriano BAratelli"/></a>
                             </div>
                         </div>
                         <div class="row">

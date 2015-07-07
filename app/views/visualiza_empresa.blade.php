@@ -43,10 +43,10 @@
 <div class="row">
     <div class="medium-12 columns">
         <ul class="bxslider">
-            <li><img src="{{URL::to('/')}}/img/banner/1.jpg" alt="Anuncio Topo 1"/></li>
-            <li><img src="{{URL::to('/')}}/img/banner/2.jpg" alt="Anuncio Topo 2"/></li>
-            <li><img src="{{URL::to('/')}}/img/banner/3.jpg" alt="Anuncio Topo 3"/></li>
-            <li><img src="{{URL::to('/')}}/img/banner/4.jpg" alt="Anuncio Topo 4"/></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/18"><img src="{{URL::to('/')}}/img/banner/1.jpg" alt="Sit - Escolas de Profissões"/></a></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/19"><img src="{{URL::to('/')}}/img/banner/2.jpg" alt="Pernanbucanas"/></a></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/17"><img src="{{URL::to('/')}}/img/banner/3.jpg" alt="GamaEmpregos.com.br"/></a></li>
+            <li><a href="{{URL::to('/')}}/empresa/detalhes/6"><img src="{{URL::to('/')}}/img/banner/4.jpg" alt="Ferraz Extintores"/></a></li>
             <li><img src="{{URL::to('/')}}/img/banner/5.jpg" alt="Anuncio Topo 5"/></li>
         </ul>
     </div>
@@ -76,23 +76,24 @@
                         @foreach($empresa as $e)
                         <div class="row">
                             <div class="medium-5 columns">
-                                <img src="{{URL::to('/')}}/img/empresas/{{$e->razao_social}}/arte_{{$e->razao_social}}.jpg" alt="{{$e->razao_social}}" class="art-det">
+                                <img src="{{URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/arte_{{str_replace(' ', '_', $e->razao_social)}}.jpg" alt="{{$e->razao_social}}" class="art-det">
                             </div>
                             <div class="medium-7 columns">
                                 <h3 style="text-transform: uppercase"><strong>{{$e->nome_emp}}</strong></h3>
                                 <ul class="no-bullet">
                                     <li><i style="font-size: 1.5rem" class="fi-marker large"></i> {{ucwords($e->endereco)}}, {{$e->numero}} - {{ucwords($e->bairro)}} - CEP {{substr($e->cep, 0, 5)}}-{{substr($e->cep, 5, 3)}} | {{ucwords($e->nome)}} - {{$e->sigla}}</li>
                                     <li><i style="font-size: 1.5rem" class="fi-telephone"></i>
-                                        ({{substr($e->telefone1, 0,2)}}) {{substr($e->telefone1, 2,4)}}-{{substr($e->telefone1, 6,4)}}
+                                        ({{substr($e->telefone1, 0,2)}}) {{substr($e->telefone1, 2,9)}}
                                         @if($e->telefone2 != null && $e->telefone2 != 0)
-                                        | ({{substr($e->telefone2, 0,2)}}) {{substr($e->telefone2, 2,4)}}-{{substr($e->telefone2, 6,4)}}
+                                        | ({{substr($e->telefone2, 0,2)}}) {{substr($e->telefone2, 2,9)}}
                                         @endif
                                         @if($e->celular != null && $e->celular != 0)
-                                        | ({{substr($e->celular, 0,2)}}) {{substr($e->celular, 2,5)}}-{{substr($e->celular, 7,4)}}
+                                        | ({{substr($e->celular, 0,2)}}) {{substr($e->celular, 2,9)}}
                                         @endif
                                     </li>
-
+                                    @if($e->email != null)
                                     <li><i style="font-size: 1.5rem" class="fi-mail"></i> {{$e->email}}</li>
+                                    @endif
                                     @foreach($social as $s)
                                     @if(count($social)>0)
                                     @if($s->site_url != null)
@@ -137,11 +138,11 @@
                                         <a href="#fotos1">Fotos</a>
                                         <div id="fotos1" class="content">
                                             <ul class="clearing-thumbs" data-clearing>
-                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/01.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/miniatura_01.jpg"></a></li>
-                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/02.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/miniatura_02.jpg"></a></li>
-                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/03.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/miniatura_03.jpg"></a></li>
-                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/04.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/miniatura_04.jpg"></a></li>
-                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/05.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{$e->razao_social}}/miniatura_05.jpg"></a></li>
+                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/01.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/miniatura_01.jpg"></a></li>
+                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/02.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/miniatura_02.jpg"></a></li>
+                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/03.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/miniatura_03.jpg"></a></li>
+                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/04.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/miniatura_04.jpg"></a></li>
+                                                <li><a class="th" href="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/05.jpg"><img src="{{ URL::to('/')}}/img/empresas/{{str_replace(' ', '_', $e->razao_social)}}/miniatura_05.jpg"></a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -172,12 +173,12 @@
                         </div>
                         <div class="row">
                             <div class="medium-12 columns">
-                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 2" />
+                                <a href="{{URL::to('/')}}/empresa/detalhes/12"><img src="{{URL::to('/')}}/img/lateral/oliveiralocacoes_lateral.jpg" alt="Oliveira Locações"/></a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="medium-12 columns">
-                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 3" />
+                                <a href="{{URL::to('/')}}/empresa/detalhes/15"><img src="{{URL::to('/')}}/img/lateral/engadriano_lateral.jpg" alt="Eng. Adriano BAratelli"/></a>
                             </div>
                         </div>
                         <div class="row">
