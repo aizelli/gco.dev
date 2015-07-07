@@ -1,4 +1,4 @@
 ## Projeto Guia Web Região
 
 
-Documentation for the entire framework can be found on the [Site](http://guiawebregiao.com.br).
+Link para o [Site](http://www.guiawebregiao.com.br).
