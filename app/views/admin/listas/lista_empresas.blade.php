@@ -80,7 +80,12 @@
                                         <ul class="button-group round">
                                             <li><a href="{{URL::to("admin/editar/empresa/$d->id")}}" class="button secondary tiny" title="Editar dados"><i class="fi-pencil" style="font-size: 1rem"></i></a></li>
                                             <li><a href="{{URL::to("admin/empresa/imagens/$d->id")}}" class="button secondary tiny" title="Editar imagens"><i class="fi-photo" style="font-size: 1rem"></i></a></li>
-                                            <li><button class="button secondary tiny" title="Excluir registro" type="submit"><i class="fi-trash" style="font-size: 1rem"></i></button></li>
+                                            @if($d->tipo == 1)
+                                            <li><a href="{{URL::to("admin/empresa/destaque/$d->id")}}" class="button warning tiny" title="Editar imagens"><i class="fi-star" style="font-size: 1rem"></i></a></li>
+                                            @else
+                                            <li><a href="{{URL::to("admin/empresa/destaque/$d->id")}}" class="button secondary tiny" title="Editar imagens"><i class="fi-star" style="font-size: 1rem"></i></a></li>
+                                            @endif
+                                            <li><button class="button alert tiny" title="Excluir registro" type="submit"><i class="fi-trash" style="font-size: 1rem"></i></button></li>
                                         </ul>
                                         {{Form::close() }}
                                     </td>

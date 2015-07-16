@@ -81,7 +81,11 @@
                             <div class="medium-7 columns">
                                 <h3 style="text-transform: uppercase"><strong>{{$e->nome_emp}}</strong></h3>
                                 <ul class="no-bullet">
-                                    <li><i style="font-size: 1.5rem" class="fi-marker large"></i> {{ucwords($e->endereco)}}, {{$e->numero}} - {{ucwords($e->bairro)}} - CEP {{substr($e->cep, 0, 5)}}-{{substr($e->cep, 5, 3)}} | {{ucwords($e->nome)}} - {{$e->sigla}}</li>
+                                    <li><i style="font-size: 1.5rem" class="fi-marker large"></i> {{ucwords($e->endereco)}}, {{$e->numero}}
+                                        @if($e->telefone2 != null && $e->telefone2 != 0)
+                                         - {{ucwords($e->complemento)}}
+                                        @endif
+                                         - {{ucwords($e->bairro)}} - CEP {{substr($e->cep, 0, 5)}}-{{substr($e->cep, 5, 3)}} | {{ucwords($e->nome)}} - {{$e->sigla}}</li>
                                     <li><i style="font-size: 1.5rem" class="fi-telephone"></i>
                                         ({{substr($e->telefone1, 0,2)}}) {{substr($e->telefone1, 2,9)}}
                                         @if($e->telefone2 != null && $e->telefone2 != 0)
@@ -183,12 +187,12 @@
                         </div>
                         <div class="row">
                             <div class="medium-12 columns">
-                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 4" />
+                                <a href="{{URL::to('/')}}/empresa/detalhes/28"><img src="{{URL::to('/')}}/img/lateral/km_eletrica_lateral.jpg" alt="KM Elétrica e Hidráulica" /></a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="medium-12 columns">
-                                <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 5" />
+                                <a href="{{URL::to('/')}}/empresa/detalhes/32"><img src="{{URL::to('/')}}/img/lateral/katrina_lateral.jpg" alt="Katrina Fisioterapeuta"/></a>
                             </div>
                         </div>
                         <div class="row">

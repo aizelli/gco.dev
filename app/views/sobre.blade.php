@@ -104,12 +104,12 @@
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 4" />
+                        <a href="{{URL::to('/')}}/empresa/detalhes/28"><img src="{{URL::to('/')}}/img/lateral/km_eletrica_lateral.jpg" alt="KM Elétrica e Hidráulica" /></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 5" />
+                        <a href="{{URL::to('/')}}/empresa/detalhes/32"><img src="{{URL::to('/')}}/img/lateral/katrina_lateral.jpg" alt="Katrina Fisioterapeuta"/></a>
                     </div>
                 </div>
                 <div class="row">

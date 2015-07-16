@@ -68,6 +68,31 @@ class HomeController extends BaseController {
         ));
     }
 
+    public function contato() {
+
+        $estados = State::lists('nome', 'id');
+        array_unshift($estados, 'Selecione a UF');
+        $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
+
+        return View::make('contato', array(
+                    'categorias' => $categorias,
+                    'uf' => $estados
+        ));
+    }
+
+    public function enviarMensagem() {
+
+        $estados = State::lists('nome', 'id');
+        array_unshift($estados, 'Selecione a UF');
+        $categorias = Category::where('parent_id', '=', null)->orderBy('name')->get();
+
+        return View::make('contato', array(
+                    'categorias' => $categorias,
+                    'uf' => $estados,
+                    'sucesso' => true
+        ));
+    }
+
     public function dropdownCities($id) {
         $cidades = State::find($id)->cities->lists('id', 'nome');
         return Response::make($cidades);

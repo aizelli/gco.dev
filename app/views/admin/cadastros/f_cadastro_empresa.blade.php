@@ -80,12 +80,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="medium-6 columns">
-                                {{ Form::label('site', 'Web Site') }}
-                                {{ Form::text('site','',array('id'=>'site')) }}
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="medium-12 columns">
                                 {{ Form::label('descricao', 'Resumo*') }}
                                 {{ Form::textarea('descricao', null, array('rows'=>'5', 'id'=>'descricao')) }}

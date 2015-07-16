@@ -112,7 +112,7 @@ class CompanyController extends BaseController {
         $destino = str_replace(' ', '_', $destino);
 
         if (Input::hasFile('arte')) {
-            $nome = "arte_" . str_replace(' ','_',$empresa->razao_social) . "." . Input::file('arte')->getClientOriginalExtension();
+            $nome = "arte_" . str_replace(' ', '_', $empresa->razao_social) . "." . Input::file('arte')->getClientOriginalExtension();
             $arte = Input::file('arte');
             $arte->move($destino, $nome);
         }
@@ -182,15 +182,26 @@ class CompanyController extends BaseController {
 
     public function editCompanies($id) {
 
+        $result = false;
+
         $empresas = Company::find($id);
         $estados = State::lists('nome', 'id');
         array_unshift($estados, 'Selecione');
+        $cidades = City::orderBy('nome')->lists('nome', 'id');
         $categorias = Category::where('parent_id', '=', null)->lists('name', 'id');
+        $redes = Network::Where('companies_id', '=', $id)->get();
+        
+        if (count($redes) <= 0) {
+            $result = true;
+        }
 
         return View::make('admin.edições.f_editar_empresa', array(
                     'dados' => $empresas,
                     'estados' => $estados,
-                    'categorias' => $categorias
+                    'cidades' => $cidades,
+                    'categorias' => $categorias,
+                    'redes' => $redes,
+                    'result' => $result
         ));
     }
 
@@ -246,13 +257,13 @@ class CompanyController extends BaseController {
             $result = Network::where('companies_id', '=', $id)->get();
 
             if (count($result) > 0) {
-                
-                foreach($result as $r){
-                    $id = $r->id();
+
+                foreach ($result as $r) {
+                    $id = $r->id;
                 }
-                
+
                 $social = Network::find($id);
-                
+
                 $social->site_url = Input::get('site');
                 $social->link_fb = Input::get('face');
                 $social->link_gp = Input::get('google');
@@ -262,9 +273,8 @@ class CompanyController extends BaseController {
                 $social->link_is = Input::get('istagram');
 
                 $social->save();
-                
             } else {
-                
+
                 $social = new Network;
 
                 $social->companies_id = $id;
@@ -293,7 +303,7 @@ class CompanyController extends BaseController {
         $destino = str_replace(' ', '_', $destino);
 
         if (Input::hasFile('arte')) {
-            $nome = "arte_" . str_replace(' ','_',$empresa->razao_social) . "." . Input::file('arte')->getClientOriginalExtension();
+            $nome = "arte_" . str_replace(' ', '_', $empresa->razao_social) . "." . Input::file('arte')->getClientOriginalExtension();
             $arte = Input::file('arte');
             $arte->move($destino, $nome);
         }
@@ -322,6 +332,21 @@ class CompanyController extends BaseController {
             $img = Input::file('img5');
             $img->move($destino, $nome);
         }
+    }
+
+    public function updateDestaque($id) {
+
+        $empresa = Company::find($id);
+
+        if ($empresa->tipo == 0) {
+            $empresa->tipo = 1;
+        } elseif ($empresa->tipo == 1) {
+            $empresa->tipo = 0;
+        }
+
+        $empresa->save();
+
+        return Redirect::to('admin/listar/empresas');
     }
 
     public function showCompany($id) {

@@ -69,7 +69,52 @@
         </div>
     </div><!-- Fim da lateral de categorias -->
     <div id="conteudo" class="medium-8 columns text-justify"><!-- Inicio da area do conteudo -->
-        
+        {{Form::open(array('method'=>'post', 'url'=>'/enviar_mensagem'))}}
+        @if ( count($errors) > 0)
+                <div data-alert class="alert-box danger radius" >
+                    <strong>Erro(s) encontrado(s):</strong>
+                    <ul>
+                        @foreach ($errors->all() as $e)
+                        <li>{{ $e }}</li>
+                        @endforeach
+                    </ul>
+                    <a href="#" class="close">&times;</a>
+                </div>
+                @endif
+                @if(isset($sucesso))
+                <div data-alert class="alert-box success radius">
+                    <strong>Obrigado por entrar em contato conosco!</strong>
+                    <strong>Em breve entraremos em contato.</strong>
+                    <a href="#" class="close">&times;</a>
+                </div>
+                @endif
+        <div class="row">
+            <div class="medium-8 columns">
+                {{ Form::label('nome', 'Nome') }}
+                {{ Form::text('nome','',array('id'=>'nome')) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-8 columns">
+                {{ Form::label('email', 'E-mail') }}
+                {{ Form::text('email','',array('id'=>'email')) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-8 columns">
+                {{ Form::label('assunto', 'Assunto') }}
+                {{ Form::text('assunto','',array('id'=>'assunto')) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="medium-8 columns">
+                {{ Form::label('mensagem', 'Mensagem') }}
+                {{ Form::textarea('mensagem', null, array('rows'=>'6','id'=>'mensagem')) }}
+            </div>
+        </div>
+        <br />
+        {{Form::button('Enviar', array('type'=>'submit', 'class'=>'button', 'title'=>'Enviar Mensagem'))}}
+        {{Form::close()}}
     </div><!-- Fim area do conteudo -->
     <div class="medium-2 columns"> <!-- Inicio do lateral parceiros -->
         <div id="lateral-direita" class="text-center">
@@ -94,12 +139,12 @@
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 4" />
+                        <a href="{{URL::to('/')}}/empresa/detalhes/28"><img src="{{URL::to('/')}}/img/lateral/km_eletrica_lateral.jpg" alt="KM Elétrica e Hidráulica" /></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="medium-12 columns">
-                        <img src="{{URL::to('/')}}/img/lateral/1.jpg" alt="Parceiros 5" />
+                        <a href="{{URL::to('/')}}/empresa/detalhes/32"><img src="{{URL::to('/')}}/img/lateral/katrina_lateral.jpg" alt="Katrina Fisioterapeuta"/></a>
                     </div>
                 </div>
                 <div class="row">

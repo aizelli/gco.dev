@@ -13,6 +13,8 @@
 
 //Rotas publicas
 Route::get('/', 'HomeController@home');
+Route::get('/contato', 'HomeController@contato');
+Route::post('/enviar_mensagem', 'HomeController@enviarMensagem');
 Route::get('/sobre', 'HomeController@sobre');
 Route::get('/empresa/detalhes/{id}', 'CompanyController@showCompany');
 Route::get('/login', 'UserController@createLogin');
@@ -40,6 +42,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('admin/filtrar/empresa', 'CompanyController@showCompaniesFilter');
     Route::get('admin/empresa/imagens/{id}', 'CompanyController@editImgCompany');
     Route::post('admin/empresa/imagens/{id}', 'CompanyController@updateImgCompany');
+    Route::get('admin/empresa/destaque/{id}', 'CompanyController@updateDestaque');
     Route::get('admin/editar/empresa/{id}', 'CompanyController@editCompanies');
     Route::post('admin/editar/empresa/{id}', 'CompanyController@updateCompanies');
     Route::get('admin/cadastro/categoria', 'CategoryController@createCategories');

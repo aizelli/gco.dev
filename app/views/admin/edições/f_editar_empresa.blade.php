@@ -112,7 +112,7 @@
                             </div>
                             <div class="medium-4 columns">
                                 {{ Form::label('cidade', 'Cidade*') }}
-                                {{ Form::select('cidade', array('0'=>'Selecione o estado'), $dados->cidade) }}
+                                {{ Form::select('cidade', $cidades, $dados->cidade) }}
                             </div>
                         </div>
                         <div class="row">
@@ -168,12 +168,12 @@
                         <hr />
                         <h3>Rede sociais </h3>
                         <hr />
+                        @if($result)
                         <div class="row">
                             <div class="medium-4 columns">
                                 {{ Form::label('site', 'Site') }}
                                 {{ Form::text('site','',array('id'=>'site')) }}
                             </div>
-
                         </div>
                         <div class="row">
                             <div class="medium-4 columns">
@@ -203,6 +203,44 @@
                                 {{ Form::text('linkedin','',array('id'=>'linkedin')) }}
                             </div>
                         </div>
+                        @else
+                        @foreach($redes as $r)
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('site', 'Site') }}
+                                {{ Form::text('site',$r->site_url,array('id'=>'site')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('face', 'Facebook') }}
+                                {{ Form::text('face',$r->link_fb,array('id'=>'face')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('google', 'Google+') }}
+                                {{ Form::text('google',$r->link_gp,array('id'=>'google')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('twitter', 'Twitter') }}
+                                {{ Form::text('twitter',$r->link_tw,array('id'=>'twitter')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="medium-4 columns">
+                                {{ Form::label('istagram', 'Istagram') }}
+                                {{ Form::text('istagram',$r->link_is,array('id'=>'isntagram')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('youtube', 'YouTube') }}
+                                {{ Form::text('youtube',$r->link_yt,array('id'=>'youtube')) }}
+                            </div>
+                            <div class="medium-4 columns">
+                                {{ Form::label('linkedin', 'Linkedin') }}
+                                {{ Form::text('linkedin',$r->link_li,array('id'=>'linkedin')) }}
+                            </div>
+                        </div>
+                        @endforeach
+                        @endif
                         <p><small><i>OBS1: Os campos marcados com * são obrigatórios.</i></small></p>
                         <p><small><i>OBS2: Antes de <strong>Salvar</strong> verificar se os campos <strong>Estado, Cidade, Categoria e SubCategoria</strong> foram selecionados.</i></small></p>
                         {{ Form::button('Salvar', array('type'=>'submit', 'class'=>'button', 'title'=>'Salvar alterações')) }}

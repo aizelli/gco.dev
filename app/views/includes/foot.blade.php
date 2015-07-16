@@ -13,7 +13,7 @@
         <div class="row">
             <div class="medium-6 columns">
                 <nav class="text-left">
-                    <a href="{{URL::to('#')}}">Contato</a> | <a href="{{URL::to('/sobre')}}">Sobre</a>
+                    <a href="{{URL::to('/contato')}}">Contato</a> | <a href="{{URL::to('/sobre')}}">Sobre</a>
                 </nav>
             </div>
             <div class="medium-6 columns">
